@@ -17,6 +17,7 @@ module.exports = function(sequelize, DataTypes) {
         isAlpha: true           // will only allow letters
 
       },
+    },
       category: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -25,6 +26,7 @@ module.exports = function(sequelize, DataTypes) {
           notEmpty: true,
           isAlpha: true           // will only allow letters and won't allow spaces like swapna kathula
         },
+      },
         datePaid: {
           type: DataTypes.DATE,
           allowNull: false,
@@ -33,6 +35,8 @@ module.exports = function(sequelize, DataTypes) {
             isDate: true            // only allow date string                     
     
           },
+        }
+      }
   });
 
 

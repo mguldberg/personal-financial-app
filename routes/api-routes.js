@@ -10,16 +10,10 @@ var db = require("../models");
 // Handles adding user to DB
 router.post("/api/users/", function (req, res) {
 
-    var signUpData = {
-        firstName: $("#firstName").val().trim(),
-        lastName: $("#lastName").val().trim(),
-        username: $("#username1").val().trim(),
-        password: $("#password1").val().trim(),
-        phone: $("#phone").val().trim(),
-        carrier: "something"
-    }
+    
 
     console.log("in create User handler");
+    console.log(req.body)
     // create takes an argument of an object describing the item we want to
     // insert into our table. In this case we just we pass in an object with a text
     // and complete property (req.body)
@@ -28,6 +22,7 @@ router.post("/api/users/", function (req, res) {
         lastName: req.body.lastName,
         userName: req.body.username,
         password: req.body.password,
+        email: req.body.email,
         cellPhone: req.body.phone,
         carrier: req.body.carrier,
     }).then(function (dbUserResp) {
@@ -61,7 +56,7 @@ router.get("/api/users", function (req, res) {
                 password: req.body.password,
             }
         }).then(function (dbUserResp) {
-            res.status(200).send(dbUserResp.id);
+            res.status(200).send(dbUserResp);
 
         })
         .catch(function (dbUserResp) {
@@ -78,15 +73,7 @@ router.get("/api/users", function (req, res) {
 // Handles adding user to DB
 router.post("/api/users/expenses", function (req, res) {
 
-    var signUpData = {
-        firstName: $("#firstName").val().trim(),
-        lastName: $("#lastName").val().trim(),
-        username: $("#username1").val().trim(),
-        password: $("#password1").val().trim(),
-        phone: $("#phone").val().trim(),
-        carrier: "something"
-    }
-
+   
     console.log("in create User handler");
     // create takes an argument of an object describing the item we want to
     // insert into our table. In this case we just we pass in an object with a text
