@@ -1,31 +1,32 @@
 module.exports = function (sequelize, DataTypes) {
-  console.log("expense start")
-
+  
   var Expense = sequelize.define("Expense", {
     amount: {
       type: DataTypes.DECIMAL(8, 2),//(100000.25)
       allowNull: false,
       validate: {
         notEmpty: true
-       
-
       }
     },
     itemName: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        len: [1, 50],
         notEmpty: true,
-        
-
+        len: {
+          args: [2, 20],
+          msg: "Your item name is not long enough or too long.  It must be between 2 and 20 characters."
+        }
       },
     },
     category: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        len: [1, 50],
+        len: {
+          args: [2, 20],
+          msg: "Your  category name is not long enough or too long.  It must be between 2 and 20 characters."
+        },
         notEmpty: true,
         isAlpha: true           // will only allow letters and won't allow spaces like swapna kathula
       },
@@ -39,9 +40,7 @@ module.exports = function (sequelize, DataTypes) {
 
       },
     }
-  })
-
-  console.log("expense before associate")
+  });
 
   Expense.associate = function (models) {
     // We're saying that a Post should belong to an Author
@@ -52,7 +51,6 @@ module.exports = function (sequelize, DataTypes) {
       }
     });
   }
-    console.log("expense end")
     return Expense;
  
 };
