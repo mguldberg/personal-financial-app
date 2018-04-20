@@ -1,4 +1,5 @@
 module.exports = function (sequelize, DataTypes) {
+    console.log("Investment start")
     var Investment = sequelize.define("Investment", {
         // Giving the Author model a name of type STRING
         type: {
@@ -49,6 +50,7 @@ module.exports = function (sequelize, DataTypes) {
             }
         });
     };
+    console.log("Investment End")
     return Investment;
 };
 

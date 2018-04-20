@@ -1,5 +1,6 @@
 
 module.exports = function (sequelize, DataTypes) {
+  console.log("alert start")
   var Alert = sequelize.define("Alert", {
     text: {
       type: DataTypes.TEXT,
@@ -36,6 +37,6 @@ module.exports = function (sequelize, DataTypes) {
       }
     });
   };
-
+  console.log("alert end")
   return Alert;
 };

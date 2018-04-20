@@ -31,8 +31,8 @@ $(".sign-up").on("submit", function (event) {
 $(".sign-in").on("submit", function (event) {
     // Make sure to preventDefault on a submit event.
     var signInData={
-        firstName:$("#username2").val().trim(),
-        lastName: $("#password2").val().trim(),
+        username:$("#username2").val().trim(),
+        password: $("#password2").val().trim(),
     }
     event.preventDefault();
     console.log(signInData)
@@ -45,9 +45,16 @@ $(".sign-in").on("submit", function (event) {
             localStorage.setItem("userID", data.id);
            var localVarStored = localStorage.getItem("userID");
             console.log(localVarStored)
+            //renderExpenses();
+            if(data){
+                window.location="/expenses"
+            }
         }
         
     );
     
    
 });
+function renderExpenses(){
+ 
+}

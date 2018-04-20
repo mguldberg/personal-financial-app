@@ -1,4 +1,5 @@
 module.exports = function (sequelize, DataTypes) {
+  console.log("User start")
   var User = sequelize.define("User", {
     // Giving the Author model a name of type STRING
     userName: {
@@ -78,6 +79,7 @@ module.exports = function (sequelize, DataTypes) {
       onDelete: "cascade"
     });
   };
+  console.log("User End")
 
   return User;
 };
