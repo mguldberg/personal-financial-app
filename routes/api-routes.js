@@ -1,5 +1,4 @@
 var express = require("express");
-
 var router = express.Router();
 
 // Requiring our models
@@ -46,17 +45,23 @@ router.get("/api/users", function (req, res) {
     // create takes an argument of an object describing the item we want to
     // insert into our table. In this case we just we pass in an object with a text
     // and complete property (req.body)
+    console.log(req.query)
     db.User.findOne({
-        userName: req.body.username,
-    },
-        {
-            where: {
-                password: req.body.password,
-            }
-        }).then(function (dbUserResp) {
-            res.status(200).send(dbUserResp);
+        where: {
+            userName: req.query.username,
+           $and:[{
+            password: req.query.password
+            }]
+        }
 
-        })
+    }).then(function (dbUserResp) {
+        var hbsObject = {
+            data: "data",
+        }
+        res.status(200).send(dbUserResp);
+        // res.render("expenses", hbsObject);
+
+    })
         .catch(function (dbUserResp) {
             console.log("username/password are incorrect", dbUserResp);
             // Whenever a validation or flag fails, an error is thrown
@@ -99,10 +104,11 @@ router.post("/api/expenses/:id", function (req, res) {
     // insert into our table. In this case we just we pass in an object with a text
     // and complete property (req.body)
     db.Expense.create({
+        UserId: req.params.id,
         itemName: req.body.item,
         amount: req.body.amount,
         category: req.body.category,
-        dataPaid: req.body.date_purchased,
+        datePaid: "4/20/2018",
 
     }).then(function (dbExpenseResp) {
         // We have access to the new todo as an argument inside of the callback function

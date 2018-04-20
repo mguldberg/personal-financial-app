@@ -16,14 +16,14 @@ router.get("/", function (req, res) {
       res.render("users", hbsObject);
     });
   });
-  router.get("/expenses", function (req, res) {
-    db.User.findAll({}).then(function (data) {
+  router.get("/expenses/", function (req, res) {
+    //place holder
       var hbsObject = {
-        userData: data
-      };
+        userData: 'data'
+      }
       console.log(hbsObject);
       res.render("expenses", hbsObject);
-    });
+   
   });
 
 
