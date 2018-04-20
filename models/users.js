@@ -1,23 +1,30 @@
 module.exports = function (sequelize, DataTypes) {
   var User = sequelize.define("User", {
-    // Giving the Author model a name of type STRING
+
     userName: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
         notEmpty: true,
-        len: [1, 50],
-        isAlpha: true    // will only allow letters
-
+        isAlpha: true,
+        len: {
+          args: [3, 20],
+          msg: "Your username is not long enough or too long.  It must be between 3 and 20 characters."
+        }
       }
+
     },
+
     firstName: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        len: [1, 50],
         notEmpty: true,
-        isAlpha: true           // will only allow letters
+        isAlpha: true,
+        len: {
+          args: [3, 20],
+          msg: "Your first name is not long enough or too long.  It must be between 3 and 20 characters."
+        }
 
       }
     },
@@ -25,16 +32,22 @@ module.exports = function (sequelize, DataTypes) {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        len: [1, 50],
         notEmpty: true,
-        isAlpha: true           // will only allow letters
+        isAlpha: true,
+        len: {
+          args: [3, 20],
+          msg: "Your last name is not long enough or too long.  It must be between 3 and 20 characters."
+        }
       }
     },
     password: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        len: [8]
+        len: {
+          args: [6, 10],
+          msg: "Your password length must be atleast 6 characters and no morethan 10 characters."
+        }
       }
     },
     email: {
@@ -43,8 +56,10 @@ module.exports = function (sequelize, DataTypes) {
       validate: {
         isEmail: true,
         notEmpty: true,
-        len: [1, 255]
-        // checks for email format (foo@bar.com)
+        len: {
+          args: [3, 255],
+          msg: "Your email is not long enough or too long. "
+        }
 
       }
     },
@@ -52,8 +67,11 @@ module.exports = function (sequelize, DataTypes) {
       type: DataTypes.INTEGER,
       allowNull: true,
       validate: {
-        len: [10],
-        isNumeric: true          // will only allow numbers
+        isNumeric: true,
+        len: {
+          args: [10],
+          msg: "phone number must be 10 digits"
+        }
       }
     },
     carrier: {
