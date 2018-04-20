@@ -42,6 +42,12 @@ $(".sign-in").on("submit", function (event) {
     }).then(
         function (data) {
             console.log(data)
+            localStorage.setItem("userID", data.id);
+           var localVarStored = localStorage.getItem("userID");
+            console.log(localVarStored)
         }
+        
     );
+    
+   
 });

@@ -8,12 +8,13 @@ $(".expenses").on("submit", function (event) {
     }
     event.preventDefault();
     console.log(expenseData)
-    $.ajax("/api/expenses", {
+    var localVarStored = localStorage.getItem("userID");
+    $.ajax("/api/expenses/"+localVarStored, {
         type: "POST",
         data: expenseData
     }).then(
-        function () {
-            
+        function (data) {
+            console.log(data)
         }
     );
 });
