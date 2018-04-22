@@ -44,6 +44,8 @@ $(".sign-in").on("submit", function (event) {
             console.log(data)
             localStorage.setItem("userID", data.id);
            var localVarStored = localStorage.getItem("userID");
+           localStorage.setItem("firstName",data.firstName);
+         
             console.log(localVarStored)
             //renderExpenses();
             if(data){

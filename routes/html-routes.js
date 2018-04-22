@@ -17,14 +17,19 @@ router.get("/", function (req, res) {
     });
   });
   router.get("/expenses/", function (req, res) {
+    var hbsObject = {
+      userData: "data"
+    };
+      res.render("expenses", hbsObject);
+  });
+  router.get("/investments/", function (req, res) {
     //place holder
       var hbsObject = {
         userData: 'data'
       }
       console.log(hbsObject);
-      res.render("expenses", hbsObject);
+      res.render("investments", hbsObject);
    
-  });
-  
+  })
 
   module.exports = router;

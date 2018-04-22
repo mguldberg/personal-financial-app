@@ -1,16 +1,23 @@
 //Call id from local storage
 var localVarStored = localStorage.getItem("userID");
 console.log(localVarStored)
+//call first name and deliver to page
+var localFirstName=localStorage.getItem("firstName")
+$("#first-name").append("<h1>Hello "+localFirstName+"!")
 
+//Set default date as today
+document.getElementById('date').valueAsDate = new Date();
+
+//When submit button is pressed...
 $(".expenses").on("submit", function (event) {
     // Make sure to preventDefault on a submit event.
+    event.preventDefault();
     var expenseData = {
         item: $("#item").val().trim(),
         amount: $("#amount").val().trim(),
-        category: $("#category").val().trim(),
+        category: $('input[name=category]:checked').val(),
         date_purchased: $("#date").val().trim(),
     }
-    event.preventDefault();
     console.log(expenseData)
     $.ajax("/api/expenses/" + localVarStored, {
         type: "POST",
@@ -18,7 +25,7 @@ $(".expenses").on("submit", function (event) {
     }).then(
         function (data) {
             console.log(data)
-            location.reload();
+           // location.reload();
         }
     );
 });
