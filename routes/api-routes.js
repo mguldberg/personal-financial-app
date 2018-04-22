@@ -150,5 +150,34 @@ router.post("/api/invenstment/", function (req, res) {
         });
 });
 
+router.get("/api/stocks", function (req, res) {
+console.log("Hellooooooo");
+var yahooFinance = require('yahoo-finance');
+ 
+yahooFinance.historical({
+  symbol: 'AAPL',
+  from: '2018-04-01',
+  to: '2018-04-22',
+  // period: 'd'  // 'd' (daily), 'w' (weekly), 'm' (monthly), 'v' (dividends only)
+}, function (err, quotes) {
+  console.log(quotes);
+});
+ 
+// This replaces the deprecated snapshot() API
+yahooFinance.quote({
+  symbol: 'AAPL',
+  modules: [ 'price', 'summaryDetail' ] // see the docs for the full list
+}, function (err, quotes) {
+  console.log(quotes);
+  //http://localhost:8080/api/stocks run this url in browser.
+});
+   
+        
+});
+
+
+
 // Export routes for server.js to use.
 module.exports = router;
+
+
