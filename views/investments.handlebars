@@ -1,7 +1,13 @@
    <div class="container">
-        <div class="row">
+       <div class="row">
             <div class="col-md-12">
-                    <form class="investments">
+                <div id="first-name"></div>
+            
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                    <form class="investments cards">
                             Type:
                             <br>
                             <input type="radio" name="type" value="Crypto Currency" checked> Crypto Currency
@@ -20,18 +26,35 @@
                             <br>
                             <input type="date" name="date" id="date"  >
                             <br>
-                            <input type="submit" value="Submit">
+                            <br>
+                            <input type="submit" class="btn btn-outline-dark btn-lg" value="Submit">
                     </form>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                 <div id="container" style="min-width: 310px; max-width: 600px; height: 400px; margin: 0 auto"></div>
+             <div class="col-md-8">
+                 <div class="card" id="container" style="min-width: 310px; max-width: 600px; height: 400px; margin: 0 auto"></div>
     <!-- Data from www.netmarketshare.com. Select Browsers => Desktop share by version. Download as tsv. -->
                 <pre id="tsv" style="display:none">
                 </pre>
             </div>
         </div>
     </div>
-
+    
+   <div class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div id="error-text"></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
    <script src="js/investments.js"></script>

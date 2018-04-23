@@ -3,7 +3,7 @@ var localVarStored = localStorage.getItem("userID");
 console.log(localVarStored)
 //call first name and deliver to page
 var localFirstName=localStorage.getItem("firstName")
-$("#first-name").append("<h1>Hello "+localFirstName+"!")
+$("#first-name").append("Hello "+localFirstName+"!")
 
 //Set default date as today
 document.getElementById('date').valueAsDate = new Date();
@@ -26,9 +26,18 @@ $(".expenses").on("submit", function (event) {
     }).then(
         function (data) {
             console.log(data)
-           // location.reload();
+           location.reload();
         }
-    );
+    )
+    .fail(function (err) {
+        console.log("getting an error from the database", err.status, err.statusText);
+        console.log(err.status);
+        console.log(err.responseJSON.errors["0"]);
+        $(".modal-title").text("HTTP Error : " + err.status + " " + err.statusText);
+        $("#error-text").text(err.responseJSON.errors["0"].message);
+        $(".modal").modal('toggle');
+    });
+
 });
 console.log("test")
 $.ajax("/api/expenses/" + localVarStored, {
@@ -164,7 +173,7 @@ $.ajax("/api/expenses/" + localVarStored, {
             var currentItem = {}
             currentItem.name = foodArr[i].itemName
             //Item amount converted into a percentage of total expenses 
-            currentItem.y = (parseFloat(foodArr[i].amount) / total * 100)
+            currentItem.y = (parseFloat(foodArr[i].amount) / foodTotal * 100)
             //Now push the item amount in dollars
             currentItem.amount = ("$" + parseFloat(foodArr[i].amount).toFixed(2))
             //Push the currentItem array into the foodItemData array
@@ -174,28 +183,28 @@ $.ajax("/api/expenses/" + localVarStored, {
         for (var i = 0; i < entertainmentArr.length; i++) {
             var currentItem = {}
             currentItem.name = entertainmentArr[i].itemName
-            currentItem.y = (parseFloat(entertainmentArr[i].amount) / total * 100)
+            currentItem.y = (parseFloat(entertainmentArr[i].amount) / entertainmentTotal * 100)
             currentItem.amount = ("$" + parseFloat(entertainmentArr[i].amount).toFixed(2))
             entertainmentItemData.push(currentItem)
         }
         for (var i = 0; i < housingArr.length; i++) {
             var currentItem = {}
             currentItem.name = housingArr[i].itemName
-            currentItem.y = (parseFloat(housingArr[i].amount) / total * 100)
+            currentItem.y = (parseFloat(housingArr[i].amount) / housingTotal * 100)
             currentItem.amount = ("$" + parseFloat(housingArr[i].amount).toFixed(2))
             housingItemData.push(currentItem)
         }
         for (var i = 0; i < automobileArr.length; i++) {
             var currentItem = {}
             currentItem.name = automobileArr[i].itemName
-            currentItem.y = (parseFloat(automobileArr[i].amount) / total * 100)
+            currentItem.y = (parseFloat(automobileArr[i].amount) / automobileTotal * 100)
             currentItem.amount = ("$" + parseFloat(automobileArr[i].amount).toFixed(2))
             automobileItemData.push(currentItem)
         }
         for (var i = 0; i < otherArr.length; i++) {
             var currentItem = {}
             currentItem.name = otherArr[i].itemName
-            currentItem.y = (parseFloat(otherArr[i].amount) / total * 100)
+            currentItem.y = (parseFloat(otherArr[i].amount) / otherTotal * 100)
             currentItem.amount = ("$" + parseFloat(otherArr[i].amount).toFixed(2))
             otherItemData.push(currentItem)
         }
@@ -275,4 +284,4 @@ $.ajax("/api/expenses/" + localVarStored, {
             }
         });
     }
-);
+)

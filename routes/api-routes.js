@@ -206,7 +206,7 @@ router.post("/api/investment/:id", function (req, res) {
             //API call requires an array of currencies
             var currencyArray = [req.body.investmentName];
 
-            req.body.datePurchased = moment(req.body.datePurchased, 'MM/DD/YYYY').format('YYYY-MM-DD');
+            req.body.datePurchased = moment(req.body.datePurchased, 'YYYY-MM-DD').format('YYYY-MM-DD');
 
             console.log("date purchased ", req.body.datePurchased)
 
@@ -262,7 +262,7 @@ router.post("/api/investment/:id", function (req, res) {
             // currentValue: body.currentValue,
             // investmentImgUrl: imgUrl
 
-            req.body.datePurchased = moment(req.body.datePurchased, 'MM/DD/YYYY').format('YYYY-MM-DD');
+            req.body.datePurchased = moment(req.body.datePurchased, 'YYYY-MM-DD').format('YYYY-MM-DD');
 
 
             // This replaces the deprecated snapshot() API

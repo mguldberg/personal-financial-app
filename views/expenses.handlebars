@@ -1,70 +1,103 @@
 <style>
-        .container {
-            background: rgb(219, 241, 247);
-        }
+    body {
+        background: rgb(219, 241, 247);
+    }
 
-        h1 {
-            text-align: center;
-            color: rgb(5, 170, 235);
-            background-color: rgb(219, 241, 247);
+    .card {
+        padding: 10px;
+        border: solid black 1px;
+        margin-top:0px;
+    }
 
-        }
+    h1 {
+        text-align: center;
+        color: black;
+        background-color: rgb(219, 241, 247);
+    }
 
-        * {
-            position: relative;
-            box-sizing: border-box;
-        }
+    * {
+        position: relative;
+        box-sizing: border-box;
+    }
 
-        * {
-            font-family: 'Roboto', sans-serif !important;
-        }
+    body {
+        font-family:Arial,'san-serif';
+    }
+    .jumbotron{
+        background: rgb(219, 241, 247);
+        margin-bottom:0px;
+       margin-top:0px;
+       padding: 0.5em 0.6em;
+    }
+    
 
-        input:hover {
-            background: rgb(177, 221, 233);
-        }
-    </style>
+    input:hover {
+        background: rgb(177, 221, 233);
+    }
+</style>
 <div class="container">
-    <div class="row">
-        <div class="col-md-12">
-            <div id="first-name"></div>
-            
-        </div>
+    <div class="jumbotron">
+        <h1 class="display-4">Personal Expenses</h1>
+        <p class="lead"id="first-name"></p>
+        <hr class="my-4">
     </div>
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-4 card">
             <form class="expenses">
                 Item:
                 <br>
                 <input type="text" id="item" name="item" placeholder="ham">
                 <br> Amount:
                 <br>
-                <input type="text" name="amount" id="amount" placeholder="10">
+                <input type="number" min="0" name="amount" id="amount" placeholder="10">
                 <br> Category:
                 <br>
-                <input type="radio" name="category" value="Food" checked> Food
+                <input type="radio" name="category" id="food" value="Food" checked>
+                <label class="form-check-label" for="food">Food</label>
                 <br>
-                <input type="radio" name="category" value="Entertainment"> Entertainment
+                <input type="radio" name="category" id="entertainment" value="Entertainment">
+                <label class="form-check-label" for="entertainment">Entertainment</label>
                 <br>
-                <input type="radio" name="category" value="Housing"> Housing
+                <input type="radio" name="category" id="housing" value="Housing">
+                <label class="form-check-label" for="housing">Housing</label>
                 <br>
-                <input type="radio" name="category" value="Automobile"> Automobile
+                <input type="radio" name="category" id="automobile" value="Automobile">
+                <label class="form-check-label" for="automobile">Automobile</label>
                 <br>
-                <input type="radio" name="category" value="Other"> Other
+                <input type="radio" name="category" value="Other">
+                <label class="form-check-label" for="other">Other</label>
                 <br> Date Purchased (optional):
                 <br>
                 <input type="date" name="date" id="date" placeholder="Today">
                 <br>
-                <input type="submit" value="Submit">
+                <br>
+                <input type="submit" class="btn btn-primary btn-lg" value="Submit">
             </form>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-md-12">
-            <div id="container" style="min-width: 310px; max-width: 600px; height: 400px; margin: 0 auto"></div>
+        <div class="col-md-8">
+            <div class="card" id="container" style="min-width: 310px; max-width: 600px; height: 400px; margin: 0 auto"></div>
             <!-- Data from www.netmarketshare.com. Select Browsers => Desktop share by version. Download as tsv. -->
             <pre id="tsv" style="display:none">
                 </pre>
         </div>
     </div>
+</div>
+   <div class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div id="error-text"></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
 </div>
 <script src="js/expenses.js"></script>
