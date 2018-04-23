@@ -11,6 +11,7 @@ $(".investments").on("submit", function (event) {
         type:$('input[name=type]:checked').val(),
         investmentName: $("#investment-name").val().trim(),
         amount: $("#amount").val().trim(),
+        costBasis: $("#cost-basis").val().trim(),
         datePurchased: $("#date").val().trim()
     }
     console.log(investmentData)
