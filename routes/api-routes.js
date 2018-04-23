@@ -9,12 +9,14 @@ const cc = require('cryptocompare')
 //moment NPM module
 var moment = require('moment');
 
+//Yahoo Finance NPM module
+var yahooFinance = require('yahoo-finance');
+
+//email and text js files
+var email = require("../messaging/email")
+var texts = require("../messaging/texts")
+
 // Requiring our DB models
-
-var email=require("../messaging/email")
-var texts=require("../messaging/texts")
-// Requiring our models
-
 var db = require("../models");
 
 //global var that will be run once on init and then available for looking up crypto currency
@@ -44,8 +46,8 @@ router.post("/api/users/", function (req, res) {
 
         // We have access to the new todo as an argument inside of the callback function
         res.json(JSON.stringify(dbUserResp));
-      
-      //functions from external .js file that send emails and texts
+
+        //functions from external .js file that send emails and texts
         email(dbUserResp.email)
         texts(dbUserResp.cellPhone)
     })
@@ -249,11 +251,62 @@ router.post("/api/investment/:id", function (req, res) {
 
         //is investment a Stock
         case 'Stock':
-            //checking to see if the optional parameter for Cost Basis was sent
-            if (req.body.costBasis == 0) {
-                // call historic Stock price lookup api using Yahoo-finance API
 
-            }
+            // UserId: params.id,
+            // type: body.type,
+            // investmentName: body.investmentName,
+            // amount: body.amount,
+            // datePurchased: body.datePurchased,
+            // costBasis: body.costBasis,
+            // currentValue: body.currentValue,
+            // investmentImgUrl: imgUrl
+
+            req.body.datePurchased = moment(req.body.datePurchased, 'MM/DD/YYYY').format('YYYY-MM-DD');
+
+
+            // This replaces the deprecated snapshot() API
+            yahooFinance.quote({
+                symbol: req.body.investmentName,
+                modules: ['price', 'summaryDetail'] // see the docs for the full list
+            }, function (err, currentQuotes) {
+                console.log(currentQuotes);
+                //http://localhost:8080/api/stocks run this url in browser.
+
+                console.log("current stock price", currentQuotes.price.regularMarketPrice);
+
+                //set current stock price
+                req.body.currentValue = currentQuotes.price.regularMarketPrice;
+
+                //checking to see if the optional parameter for Cost Basis was sent
+                if (req.body.costBasis == 0) {
+                    // call historic Stock price lookup api using Yahoo-finance API
+
+                    yahooFinance.historical({
+                        symbol: req.body.investmentName,
+                        from: req.body.datePurchased,
+                        to: req.body.datePurchased,
+                        // period: 'd'  // 'd' (daily)
+                    }, function (err, quotes) {
+                        console.log("full quote response- historical", quotes[0]);
+                        console.log(quotes[0].adjClose)
+                        console.log(req.body.amount);
+                        //set the costBasis = amount of the coin * price of the coin at the time of purchase
+                        req.body.costBasis = req.body.amount * quotes[0].adjClose
+
+                        console.log(req.body.costBasis);
+
+                        //make function call to add investment to the DB
+                        addInvestment(req.params, req.body, "#", res);
+                    });
+
+
+
+                }
+                else
+                    //make function call to add investment to the DB
+                    addInvestment(req.params, req.body, "#", res);
+            });
+
 
             // call Stock price lookup api using Yahoo-finance API
 
@@ -280,6 +333,9 @@ router.get("/api/investment/:id", function (req, res) {
 });
 
 function addInvestment(params, body, imgUrl, res) {
+
+    console.log("costBasis inside of addInvestments", body.costBasis);
+
     // INSERT new row into the Investments table using the UserID key
     db.Investment.create({
         UserId: params.id,
@@ -334,32 +390,6 @@ cc.coinList()
         coinListObj = coinList;
     })
     .catch(console.error)
-
-router.get("/api/stocks", function (req, res) {
-console.log("Hellooooooo");
-var yahooFinance = require('yahoo-finance');
- 
-yahooFinance.historical({
-  symbol: 'AAPL',
-  from: '2018-04-01',
-  to: '2018-04-22',
-  // period: 'd'  // 'd' (daily), 'w' (weekly), 'm' (monthly), 'v' (dividends only)
-}, function (err, quotes) {
-  console.log(quotes);
-});
- 
-// This replaces the deprecated snapshot() API
-yahooFinance.quote({
-  symbol: 'AAPL',
-  modules: [ 'price', 'summaryDetail' ] // see the docs for the full list
-}, function (err, quotes) {
-  console.log(quotes);
-  //http://localhost:8080/api/stocks run this url in browser.
-});
-   
-        
-});
-
 
 // Export routes for server.js to use.
 module.exports = router;
