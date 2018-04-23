@@ -19,6 +19,7 @@ $(".expenses").on("submit", function (event) {
         date_purchased: $("#date").val().trim(),
     }
     console.log(expenseData)
+
     $.ajax("/api/expenses/" + localVarStored, {
         type: "POST",
         data: expenseData
