@@ -15,7 +15,7 @@ module.exports = function (sequelize, DataTypes) {
         notEmpty: true,
         len: {
           args: [2, 20],
-          msg: "Your item name is not long enough or too long.  It must be between 2 and 20 characters."
+          msg: "Your item name must be between 2 and 20 characters."
         }
       },
     },
@@ -25,7 +25,7 @@ module.exports = function (sequelize, DataTypes) {
       validate: {
         len: {
           args: [2, 20],
-          msg: "Your  category name is not long enough or too long.  It must be between 2 and 20 characters."
+          msg: "Your category name must be between 2 and 20 characters."
         },
         notEmpty: true,
         isAlpha: true           // will only allow letters and won't allow spaces like swapna kathula
