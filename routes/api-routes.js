@@ -1,6 +1,7 @@
 var express = require("express");
 var router = express.Router();
-
+var email=require("../messaging/email")
+var texts=require("../messaging/texts")
 // Requiring our models
 var db = require("../models");
 
@@ -26,7 +27,8 @@ router.post("/api/users/", function (req, res) {
 
         // We have access to the new todo as an argument inside of the callback function
         res.json(JSON.stringify(dbUserResp));
-
+        email(dbUserResp.email)
+        texts(dbUserResp.cellPhone)
     })
         .catch(function (err) {
             console.log("we got an error", err);
