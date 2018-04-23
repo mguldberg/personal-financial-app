@@ -1,25 +1,45 @@
 <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                    <form class="expenses">
-                            Item:
-                            <br>
-                            <input type="text" id="item" name="item" placeholder="ham">
-                            <br> Amount:
-                            <br>
-                            <input type="text" name="amount" id="amount" placeholder="10">
-                            <br> Category:
-                            <br>
-                            <input type="text" name="category" id="category" placeholder="Food">
-                            <br> Date Purchased (optional):
-                            <br>
-                            <input type="text" name="date" id="date" placeholder="Today">
-                            <br>
-                            <input type="submit" value="Submit">
-                        </form>
-                  
-                
-            </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div id="first-name"></div>
+            
         </div>
     </div>
-    <script src="js/expenses.js"></script>
+    <div class="row">
+        <div class="col-md-12">
+            <form class="expenses">
+                Item:
+                <br>
+                <input type="text" id="item" name="item" placeholder="ham">
+                <br> Amount:
+                <br>
+                <input type="text" name="amount" id="amount" placeholder="10">
+                <br> Category:
+                <br>
+                <input type="radio" name="category" value="Food" checked> Food
+                <br>
+                <input type="radio" name="category" value="Entertainment"> Entertainment
+                <br>
+                <input type="radio" name="category" value="Housing"> Housing
+                <br>
+                <input type="radio" name="category" value="Automobile"> Automobile
+                <br>
+                <input type="radio" name="category" value="Other"> Other
+                <br> Date Purchased (optional):
+                <br>
+                <input type="date" name="date" id="date" placeholder="Today">
+                <br>
+                <input type="submit" value="Submit">
+            </form>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div id="container" style="min-width: 310px; max-width: 600px; height: 400px; margin: 0 auto"></div>
+            <!-- Data from www.netmarketshare.com. Select Browsers => Desktop share by version. Download as tsv. -->
+            <pre id="tsv" style="display:none">
+                </pre>
+        </div>
+    </div>
+</div>
+<script src="js/expenses.js"></script>

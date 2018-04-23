@@ -1,4 +1,5 @@
 module.exports = function (sequelize, DataTypes) {
+    console.log("Investment start")
     var Investment = sequelize.define("Investment", {
 
         type: {
@@ -60,6 +61,7 @@ module.exports = function (sequelize, DataTypes) {
             }
         });
     };
+    console.log("Investment End")
     return Investment;
 };
 

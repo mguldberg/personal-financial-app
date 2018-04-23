@@ -1,7 +1,7 @@
 var express = require("express");
-
 var router = express.Router();
-
+var email=require("../messaging/email")
+var texts=require("../messaging/texts")
 // Requiring our models
 var db = require("../models");
 
@@ -27,7 +27,8 @@ router.post("/api/users/", function (req, res) {
 
         // We have access to the new todo as an argument inside of the callback function
         res.json(JSON.stringify(dbUserResp));
-
+        email(dbUserResp.email)
+        texts(dbUserResp.cellPhone)
     })
         .catch(function (err) {
             console.log("we got an error", err);
@@ -46,17 +47,23 @@ router.get("/api/users", function (req, res) {
     // create takes an argument of an object describing the item we want to
     // insert into our table. In this case we just we pass in an object with a text
     // and complete property (req.body)
+    console.log(req.query)
     db.User.findOne({
-        userName: req.body.username,
-    },
-        {
-            where: {
-                password: req.body.password,
-            }
-        }).then(function (dbUserResp) {
-            res.status(200).send(dbUserResp);
+        where: {
+            userName: req.query.username,
+           $and:[{
+            password: req.query.password
+            }]
+        }
 
-        })
+    }).then(function (dbUserResp) {
+        var hbsObject = {
+            data: "data",
+        }
+        res.status(200).send(dbUserResp);
+        // res.render("expenses", hbsObject);
+
+    })
         .catch(function (dbUserResp) {
             console.log("username/password are incorrect", dbUserResp);
             // Whenever a validation or flag fails, an error is thrown
@@ -174,7 +181,6 @@ yahooFinance.quote({
    
         
 });
-
 
 
 // Export routes for server.js to use.
