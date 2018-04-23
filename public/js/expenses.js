@@ -15,8 +15,11 @@ $(".expenses").on("submit", function (event) {
     $.ajax("/api/expenses/"+localVarStored, {
         type: "POST",
         data: expenseData
+    
     }).then(
-        function (data) {
+        function (data) 
+{
+            console.log("hi")
             console.log(data)
         }
     );
@@ -37,6 +40,105 @@ $.ajax("/api/expenses/"+localVarStored, {
     }
     
 );
+
+
+
+
+
+
+Highcharts.chart('container', {
+    chart: {
+      type: 'column'
+    },
+    title: {
+      text: 'Basic drilldown'
+    },
+    xAxis: {
+      type: 'category'
+    },
+  
+    legend: {
+      enabled: false
+    },
+  
+    plotOptions: {
+      series: {
+        borderWidth: 0,
+        dataLabels: {
+          enabled: true
+        }
+      }
+    },
+  
+    series: [{
+      name: 'Things',
+      colorByPoint: true,
+      data: [{
+        name: 'Animals',
+        y: 5,
+        drilldown: 'animals'
+      }, {
+        name: 'Fruits',
+        y: 2,
+        drilldown: 'fruits'
+      }, {
+        name: 'Cars',
+        y: 4,
+        drilldown: 'cars'
+      }]
+    }],
+    drilldown: {
+      series: [{
+        id: 'animals',
+        data: [{
+            name: 'Mammals',
+            y: 4,
+            drilldown: 'mammals'
+          },
+          ['Reptiles', 2],
+          ['Vertebrates', 1]
+        ]
+      },
+  
+      // second drill down
+      {
+        id: 'mammals',
+        data: [['Cats', 3], ['Dogs', 2], ['Platypus', 1]]   
+      }, {
+        id: 'mammals',
+        data: [{
+            name: 'cats',
+            y: 4,
+            drilldown: 'cats'
+          },
+          ['one', 2],
+          ['two', 1]
+        ]
+      },
+      // third drill down
+      {
+        id: 'cats',
+        data: [['Cats1', 3], ['Dogs1', 2], ['Platypus1', 1]]
+      },{
+        id: 'fruits',
+        data: [
+          ['Apples', 4],
+          ['Oranges', 2]
+        ]
+      }, {
+        id: 'cars',
+        data: [
+          ['Toyota', 4],
+          ['Opel', 2],
+          ['Volkswagen', 2]
+        ]
+      }]
+    }
+  });
+  
+
+
+
 
 
 var someArr=[
@@ -67,7 +169,7 @@ var someArr=[
 
         Highcharts.chart('container', {
             chart: {
-                type: 'pie'
+                type: 'column'
             },
             title: {
                 text: 'Browser market shares. January, 2018'

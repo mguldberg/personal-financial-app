@@ -22,6 +22,7 @@ $(".sign-up").on("submit", function (event) {
         data: signUpData
     }).then(
         function (data) {
+            console.log("hi")
             console.log(data)
         }
     );
@@ -42,6 +43,8 @@ $(".sign-in").on("submit", function (event) {
     }).then(
         function (data) {
             console.log(data)
+            console.log("hi")
+
             localStorage.setItem("userID", data.id);
            var localVarStored = localStorage.getItem("userID");
             console.log(localVarStored)

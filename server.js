@@ -1,7 +1,7 @@
 //Outside dependencies
 var express=require("express");
 var bodyParser=require("body-parser")
-var exphbs = require("express-handlebars");
+var exphbs = require("express-handlebars");//view
 
 //Set port to work locally and with heroku
 var PORT = process.env.PORT || 8080;

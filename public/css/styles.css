@@ -1,0 +1,50 @@
+
+
+           
+.cc{
+    position: fixed;
+}
+
+
+.jumbotron{
+background-color: rgb(70, 65, 4) !important;
+}
+h5{
+text-shadow: 1px 0px 0px rgb(197, 11, 11);
+color: yellowgreen
+}
+
+
+.card-body {
+background-color: #334168  !important;
+color: rgb(221, 218, 15) !important;
+}
+
+
+sign-up{
+
+border-style: solid;
+border-width: 5px;
+border-color: rgb(133, 146, 12);
+background-color: #ffffff;
+border-radius: 15px;
+width:360px;
+}
+
+.form-control{
+border-style: solid;
+border-width: 6px;
+border-color: rgb(133, 146, 12);
+background-color: #ffffff;
+border-radius: 6px;
+width:350px;
+}
+
+
+
+
+.Submit{
+background-color:#334168 
+}
+
+

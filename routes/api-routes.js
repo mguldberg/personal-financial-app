@@ -87,7 +87,7 @@ router.get("/api/expenses/:id", function (req, res) {
     }).then(function (dbExpenseResp) {
         res.status(200).send(dbExpenseResp);
     })
-        .catch(function (dbExpenseResp) {
+        .catch(function (dbExpenseResp,err) {
             console.log("expenses get had an error", dbExpenseResp);
             // Whenever a validation or flag fails, an error is thrown
             // We can "catch" the error to prevent it from being "thrown", 
