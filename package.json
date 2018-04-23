@@ -19,9 +19,13 @@
   "homepage": "https://github.com/mguldberg/personal-financial-app#readme",
   "dependencies": {
     "body-parser": "^1.18.2",
+    "crypto-fetch": "0.0.3",
+    "cryptocompare": "^0.5.0",
     "express": "^4.16.3",
     "express-handlebars": "^3.0.0",
+    "moment": "^2.22.1",
     "mysql2": "^1.5.3",
+    "node-fetch": "^2.1.2",
     "sequelize": "^4.37.6"
   }
 }
