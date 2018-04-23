@@ -33,3 +33,24 @@ app.listen(PORT, function() {
     console.log("App now listening at localhost:" + PORT);
   });
 })
+
+
+
+// var crypto = require("crypto-fetch");
+
+// params = {
+//   f: "BTC",
+//   t: "USDT",
+//   m: "poloniex"
+// }
+// console.log(params);
+
+// console.log(getDailyHistoricalPrice(params));
+
+const crypto = require('crypto');
+
+const secret = 'abcdefg';
+const hash = crypto.createHmac('sha256', secret)
+                   .update('I love cupcakes')
+                   .digest('hex');
+console.log(hash);
