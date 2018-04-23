@@ -1,0 +1,36 @@
+   <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                    <form class="investments">
+                            Type:
+                            <br>
+                            <input type="radio" name="type" value="AAPL" checked> AAPL
+                            <br>
+                            <input type="radio" name="type" value="BTC"> BTC
+                            <br>
+                            <input type="radio" name="type" value="IBM"> IBM
+                            <br> Investment Name:
+                            <br>
+                            <input type="text" name="investment-name" id="investment-name" placeholder="Facebook">
+                            <br> Amount:
+                            <br>
+                            <input type="text" name="amount" id="amount" placeholder="Food">
+                            <br> Date Purchased (optional):
+                            <br>
+                            <input type="date" name="date" id="date"  >
+                            <br>
+                            <input type="submit" value="Submit">
+                    </form>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                 <div id="container" style="min-width: 310px; max-width: 600px; height: 400px; margin: 0 auto"></div>
+    <!-- Data from www.netmarketshare.com. Select Browsers => Desktop share by version. Download as tsv. -->
+                <pre id="tsv" style="display:none">
+                </pre>
+            </div>
+        </div>
+    </div>
+
+   <script src="js/investments.js"></script>

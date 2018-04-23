@@ -10,6 +10,11 @@ const cc = require('cryptocompare')
 var moment = require('moment');
 
 // Requiring our DB models
+
+var email=require("../messaging/email")
+var texts=require("../messaging/texts")
+// Requiring our models
+
 var db = require("../models");
 
 //global var that will be run once on init and then available for looking up crypto currency
@@ -39,7 +44,10 @@ router.post("/api/users/", function (req, res) {
 
         // We have access to the new todo as an argument inside of the callback function
         res.json(JSON.stringify(dbUserResp));
-
+      
+      //functions from external .js file that send emails and texts
+        email(dbUserResp.email)
+        texts(dbUserResp.cellPhone)
     })
         .catch(function (err) {
             console.log("we got an error", err);
@@ -117,11 +125,10 @@ router.post("/api/expenses/:id", function (req, res) {
     // insert into our table. In this case we just we pass in an object with a text
     // and complete property (req.body)
     db.Expense.create({
-        UserId: req.params.id,
         itemName: req.body.item,
         amount: req.body.amount,
         category: req.body.category,
-        datePaid: "4/20/2018",
+        dataPaid: req.body.date_purchased,
 
     }).then(function (dbExpenseResp) {
         // We have access to the new todo as an argument inside of the callback function
@@ -328,5 +335,33 @@ cc.coinList()
     })
     .catch(console.error)
 
+router.get("/api/stocks", function (req, res) {
+console.log("Hellooooooo");
+var yahooFinance = require('yahoo-finance');
+ 
+yahooFinance.historical({
+  symbol: 'AAPL',
+  from: '2018-04-01',
+  to: '2018-04-22',
+  // period: 'd'  // 'd' (daily), 'w' (weekly), 'm' (monthly), 'v' (dividends only)
+}, function (err, quotes) {
+  console.log(quotes);
+});
+ 
+// This replaces the deprecated snapshot() API
+yahooFinance.quote({
+  symbol: 'AAPL',
+  modules: [ 'price', 'summaryDetail' ] // see the docs for the full list
+}, function (err, quotes) {
+  console.log(quotes);
+  //http://localhost:8080/api/stocks run this url in browser.
+});
+   
+        
+});
+
+
 // Export routes for server.js to use.
 module.exports = router;
+
+
