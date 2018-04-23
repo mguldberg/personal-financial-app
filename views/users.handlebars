@@ -1,141 +1,171 @@
-       <header class="masthead clear">
-                <div class="centered">
-                    
-                    <div class="site-branding">
-                        <h1 class="site-title">Layouts</h1>
-                    
-                    </div><!-- .site-title -->
-                </div><!-- .centered -->
-            </header><!-- .masthead -->
+          <style>            
+ 
+body {
+    line-height: 30px;
+    background-image: url(../images/background.jpg);
+    background-size: cover;
+    background-position: center;
+    color: black;
+    background-color: black;
+    width: 100%;
+    padding: 0px;
+    margin: auto 0;
+    overflow: auto;
+  
+}
+* {
+    position: relative;
+    box-sizing: border-box;
+}
+* {
+    font-family: 'Roboto', sans-serif !important;
+}
+h1 {
+    color: aliceblue;
+    text-shadow: 2px 2px 2px yellow;
+}
+h1, h3, .card-body {
+    color: rgb(72, 198, 240);
+}
+input:hover {
+    background: rgb(177, 221, 233);   
+}
+button{
+    border-color: rgb(64, 136, 136)!important;
+    background-color: rgb(214, 238, 240);
+}
+.jumbotron {
+    width: 100%;
+    background: rgb(105, 105, 105);
+    background: rgba(105, 105, 105, .5);    
+    color: #fff;
+    text-shadow: 2px 2px 4px #000000;  
+    border: 1px solid paleturquoise !important;
+    top:15px;
+}
+.card {
+    background-color: rgba(0,0,0,.5);
+    border-color: paleturquoise;
+}
+.form-control{
+  border-style: solid;
+    border-width: 2px;
+    background-color: #ffffff;
+    border-radius: 6px;
+    width:350px;
+}
+
+</style>
+         <div class="container">
+                <div class="jumbotron text-center" style="background-color: none; color: none">
+                    <h1>Financial Expenses</h1>
+                </div> <!-- Jumbotron End -->  
+                
 <div class="row">
   <div class="col-sm-2">
     <div class="card">
       <div class="card-body">
-
         <div class="card" >
                 <div class="card-body">
                   <h5 class="card-title">Card title</h5>
-               
                 </div>
               </div>
               <div class="card">
                     <div class="card-body">
                       <h5 class="card-title">Card title</h5>
-                      <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                      <p class="card-text">yyyyyy.</p>
-                      <a href="#" class="card-link">link</a>
-                      <a href="#" class="card-link">link</a>
                     </div>
-                  </div>
-      </div>
-    </div>
-  </div>
+              </div><!--card End-->
+            </div><!--card-bdody End-->
+          </div><!--card End-->
+        </div><!--col-sm-2 End-->
   
- 
+<div class="col-sm-8">
+  <div class="card">
+        <div class="card-body">
+         <h5 class="card-title">Sign In</h5>
+         
+          <form class="sign-in">
+            <h5>Username:</h5>
+            <input type="text" class="form-control" id="username2" name="username" placeholder="username">
+            <h5>Password:</h5>
+            <input type="password" class="form-control" id="password2" name="username" placeholder="password">
+            <button type="submit" class="btn btn-default" id="submit">Submit</button>
+            </form>
+           
+           
+            <button data-toggle="collapse" data-target="#demo">Sign up</button>
+            <div id="demo" class="collapse">
   
- 
-        <div class="col-sm-8">
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">Sign Up</h5>
-              <!-- <p class="card-text">With supporting text be as </p> -->
-              <form class="sign-up">
-                First name:
-                <br>
-                <input type="text" id="firstName" name="firstname" placeholder="Mickey">
-                <br> Last name:
-                <br>
-                <input type="text" name="lastname" id="lastName" placeholder="Mouse">
-                <br> Email:
-                <br>
-                <input type="email" name="email" id="email" placeholder="example@gmail.com">
-                <br> Phone (optional):
-                <br>
-                <input type="tel" id="phone" name="phone" placeholder="763-595-3406">
-                <br>
-                <!--Radio buttons-->
-                <input type="radio" name="carrier" value="" checked> None
-                <br>
-                <input type="radio" name="carrier" value="AT & T"> AT&T
-                <br>
-                <input type="radio" name="carrier" value="verizon"> Verizon
-                <br>
-                <input type="radio" name="carrier" value="t-mobile"> T-Mobile
-                <br>
-                <input type="radio" name="carrier" value="sprint"> Sprint
-                <!--Radio buttons-->
-                <br> Username:
-                <br>
-                <input type="text" id="username1" name="username" placeholder="username">
-                <br> Password:
-                <br>
-                <input type="password" id="password1" name="username" placeholder="password">
-                <br>
-                <input type="submit" value="Submit">
-            </form>
-            <p>
-                <a href="#">Sign Up</a>
-            </p>
-              
-            </div>
-          </div>
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">Sign In</h5>
-              <!-- <p class="card-text">With supporting text be as </p> -->
-              <form class="sign-in">
-                Username:
-                <br>
-                <input type="text" id="username2" name="username" placeholder="username">
-                <br> Password:
-                <br>
-                <input type="password" id="password2" name="username" placeholder="password">
-                <br>
-                <input type="submit">
-            </form>
-              
-            </div>
-          </div>
-        </div>
-  <div class="col-sm-2">
-    <div class="card">
-      <div class="card-body">
+            <!--<div id="accordion" role="tablist" aria-multiselectable="true">
+            <br>
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          <div class="card-header" role="tab" id="headingOne" >-->
+         <!-- <button class="mb-0"> Sign Up</button>-->
+            <!--</div>-->
+         <!-- </div>-->
+         <!--</a>-->
+        <!--<div id="collapseOne" class="collapse in" role="tabpanel" aria-labelledby="headingOne">-->
        
-        <div class="card" >
-                <div class="card-body">
-                  <h5 class="card-title">Card title</h5>
-               
-                </div>
-              </div>
-              <div class="card">
-                    <div class="card-body">
-                      <h5 class="card-title">Card title</h5>
-                   
-                    </div>
-                  </div>
-      </div>
-    </div>
-  </div>
-</div>
+            
 
-<!-- The Modal -->
-    <div class="modal fade" id="burger-error-modal">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <!-- Modal Header -->
-                <div class="modal-header">
-                    <h4 class="modal-title"></h4>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                </div>
-                <!-- Modal body -->
-                <div class="modal-body ">
-                    <h4 id="error-text"></h4>       
-                </div>
-                <!-- Modal footer -->
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                </div>
+
+
+<div class="card-block">
+        <div class="card">
+            <div class="card-body">
+            <h5 class="card-title">Sign Up</h5>
+            <!-- <p class="card-text">With supporting text be as </p> -->
+            <form class="sign-up">
+             <h5> First name:</h5>
+              <input type="text" class="form-control" id="firstName" name="firstname" placeholder="Mickey">
+              <h5>Last name:</h5>
+              <input type="text" class="form-control" name="lastname" id="lastName" placeholder="Mouse">
+              <h5>Email:</h5>
+              <input type="email" class="form-control" name="email" id="email" placeholder="example@gmail.com">
+              <h5>Phone (optional):</h5>
+              <input type="tel" class="form-control" id="phone" name="phone" placeholder="763-595-3406">
+              <h5>Username:</h5>
+              <input type="text" class="form-control"id="username1" name="username" placeholder="username">
+              <h5>Password:</h5>
+              <input type="password"class="form-control" id="password1" name="username" placeholder="password">
+              <button type="submit" class="btn btn-default" id="submit">Submit</button>
+            </form>
+            </div> 
             </div>
+            </div>
+            </div>
+            
+            
         </div>
     </div>
+    
+    </div>
+    <div class="col-sm-2">
+        <div class="card">
+            <div class="card-body">
+                <div class="card" >
+                     <div class="card-body">
+                          <h5 class="card-title">Card title</h5>
+                        </div>
+                      </div>
+                      <div class="card">
+                            <div class="card-body">
+                              <h5 class="card-title">Card title</h5>
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+             </div>
+
+<!--<script>
+//$(window).scroll(function () {
+   // winHeight = $(window).height();
+    //if ($(window).scrollTop() > winHeight) {
+     // $('.jumbotron').css('jumbotron', 'fixed');
+      //$('.jumbotron').css('top', '0');
+   //}
+    //}); 
+<!</script> -->   
 <script src="js/main.js"></script>

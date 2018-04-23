@@ -39,7 +39,6 @@ router.post("/api/users/", function (req, res) {
         password: req.body.password,
         email: req.body.email,
         cellPhone: req.body.phone,
-        carrier: req.body.carrier,
     }).then(function (dbUserResp) {
 
         // We have access to the new todo as an argument inside of the callback function
@@ -124,11 +123,13 @@ router.post("/api/expenses/:id", function (req, res) {
     // create takes an argument of an object describing the item we want to
     // insert into our table. In this case we just we pass in an object with a text
     // and complete property (req.body)
+    console.log(req.body)
     db.Expense.create({
+        UserId: req.params.id,
         itemName: req.body.item,
         amount: req.body.amount,
         category: req.body.category,
-        dataPaid: req.body.date_purchased,
+        datePaid: req.body.date_purchased,
 
     }).then(function (dbExpenseResp) {
         // We have access to the new todo as an argument inside of the callback function
