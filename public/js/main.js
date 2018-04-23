@@ -14,7 +14,6 @@ $(".sign-up").on("submit", function (event) {
         password: $("#password1").val().trim(),
         email: $("#email").val().trim(),
         phone: $("#phone").val().trim(),
-        carrier: $('input[name=carrier]:checked').val()
     }
     console.log(signUpData)
     $.ajax("/api/users", {

@@ -74,13 +74,6 @@ module.exports = function (sequelize, DataTypes) {
           msg: "phone number must be 10 digits"
         }
       }
-    },
-    carrier: {
-      type: DataTypes.STRING,
-      allowNull: true,
-      validate: {
-        len: [5, 25]
-      }
     }
   });
 

@@ -1,0 +1,54 @@
+body {
+    line-height: 30px;
+    background-image: url(../images/background.jpg);
+    background-size: cover;
+    background-position: center;
+    color: black;
+    background-color: black;
+    width: 100%;
+    padding: 0px;
+    margin: auto 0;
+    overflow: auto;
+  
+}
+* {
+    position: relative;
+    box-sizing: border-box;
+}
+* {
+    font-family: 'Roboto', sans-serif !important;
+}
+h1 {
+    color: aliceblue;
+    text-shadow: 2px 2px 2px yellow;
+}
+h1, h3, .card-body {
+    color: rgb(72, 198, 240);
+}
+input:hover {
+    background: rgb(177, 221, 233);   
+}
+button{
+    border-color: rgb(64, 136, 136)!important;
+    background-color: rgb(214, 238, 240);
+}
+.jumbotron {
+    width: 100%;
+    background: rgb(105, 105, 105);
+    background: rgba(105, 105, 105, .5);    
+    color: #fff;
+    text-shadow: 2px 2px 4px #000000;  
+    border: 1px solid paleturquoise !important;
+    top:15px;
+}
+.card {
+    background-color: rgba(0,0,0,.5);
+    border-color: paleturquoise;
+}
+.form-control{
+  border-style: solid;
+    border-width: 2px;
+    background-color: #ffffff;
+    border-radius: 6px;
+    width:350px;
+}
