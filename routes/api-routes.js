@@ -9,8 +9,12 @@ const cc = require('cryptocompare')
 //moment NPM module
 var moment = require('moment');
 
+
 //Yahoo Finance NPM module
 var yahooFinance = require('yahoo-finance');
+
+//request NPM for making AJAX query
+var request = require('request');
 
 //email and text js files
 var email = require("../messaging/email")
@@ -34,6 +38,7 @@ router.post("/api/users/", function (req, res) {
     // create takes an argument of an object describing the item we want to
     // insert into our table. In this case we just we pass in an object with a text
     // and complete property (req.body)
+    console.log(req.body.phone)
     db.User.create({
         firstName: req.body.firstName,
         lastName: req.body.lastName,
@@ -42,13 +47,14 @@ router.post("/api/users/", function (req, res) {
         email: req.body.email,
         cellPhone: req.body.phone,
     }).then(function (dbUserResp) {
-
+       
         // We have access to the new todo as an argument inside of the callback function
         res.json(JSON.stringify(dbUserResp));
 
         //functions from external .js file that send emails and texts
-        email(dbUserResp.email)
-        texts(dbUserResp.cellPhone)
+        email(dbUserResp.email,'Welcome to the financial planner! '+'Your username is '+dbUserResp.userName+" and your password is "+dbUserResp.password)
+        texts(dbUserResp.cellPhone,'Welcome to the financial planner! '+'Your username is '+dbUserResp.userName+" and your password is "+dbUserResp.password)
+        
     })
         .catch(function (err) {
             console.log("we got an error", err);
@@ -80,6 +86,7 @@ router.get("/api/users", function (req, res) {
         var hbsObject = {
             data: "data",
         }
+        console.log(dbUserResp.cellPhone)
         res.status(200).send(dbUserResp);
         // res.render("expenses", hbsObject);
 
@@ -146,9 +153,32 @@ router.post("/api/expenses/:id", function (req, res) {
 
         });
 });
+// DELETE route for deleting expenses.
+router.delete("/api/expenses/:id", function (req, res) {
+    // specify which Expense we want to destroy with "where"
+    db.Expense.destroy({
+        where: {
+            id: req.params.id
+        }
+    }).then(function (dbExpenseResp) {
+        res.json(dbExpenseResp);
+    });
 
+});
+// DELETE route for deleting expenses.
+router.delete("/api/investment/:id", function (req, res) {
+    // specify which Expense we want to destroy with "where"
+    db.Invest.destroy({
+        where: {
+            id: req.params.id
+        }
+    }).then(function (dbInvestResp) {
+        res.json(dbInvestResp);
+    });
+
+});
 // Handles adding user to DB
-router.post("/api/investment/:id", function (req, res) {
+router.post("/api/investment/:id", function (req, expressRes) {
 
     console.log("inside Investment POST handler - /api/investment/:id - POST")
 
@@ -163,7 +193,11 @@ router.post("/api/investment/:id", function (req, res) {
             var coinMatchBool = false;
 
             //strip out * from string in current index - will cause a crash if not handled
-            regexString = req.body.investmentName.replace(/\*/g, "");
+            var regexString = req.body.investmentName.replace(/\*/g, "");
+            console.log(regexString);
+
+            //strip out spaces from string in current index
+            var regexString = req.body.investmentName.replace(/\s/g, "");
             console.log(regexString);
 
             //construct a regex string to look for in the coinList
@@ -190,6 +224,16 @@ router.post("/api/investment/:id", function (req, res) {
                     req.body.investmentImgUrl = coinListObj.Data[i].ImageUrl;
                     console.log(req.body.investmentImgUrl);
 
+                    //override search for BTC to not return Bitcoin Dark or other imitation coins
+                    //construct 2 regex string2 to look for BTC/bITcOIn in the coinList
+                    var regexVar = new RegExp('btc', 'gi');
+                    var regexVar2 = new RegExp('bitcoin', 'gi')
+
+                    if (regexVar.test(coinListObj.Data[i].FullName) || regexVar2.test(coin.Data[i].FullName)) {
+                        req.body.investmentName = 'BTC';
+                        req.body.investmentImgUrl = '/media/19633/btc.png';
+                    }
+
                     //stop looping we found a match
                     break;
                 }
@@ -199,14 +243,15 @@ router.post("/api/investment/:id", function (req, res) {
             //leave immediately from this route and return error code to front end
             if (coinMatchBool == false) {
                 console.log("invalid req.body.investmentName in investments POST handler");
-                res.status(500).send({ msg: "Invalid CryptoCoin entered.  Please try again." });
+                expressRes.status(500).send({ msg: "Invalid CryptoCoin entered.  Please try again." });
             }
+
             console.log(req.body.investmentName);
 
             //API call requires an array of currencies
             var currencyArray = [req.body.investmentName];
 
-            req.body.datePurchased = moment(req.body.datePurchased, 'MM/DD/YYYY').format('YYYY-MM-DD');
+            
 
             console.log("date purchased ", req.body.datePurchased)
 
@@ -217,6 +262,7 @@ router.post("/api/investment/:id", function (req, res) {
                     console.log("cc.priceFull");
                     console.log(prices);
                     console.log(prices[req.body.investmentName].USD.PRICE);
+                    console.log(req.body.amount);
                     req.body.currentValue = parseFloat(prices[req.body.investmentName].USD.PRICE) * req.body.amount;
                     console.log("current value of ", req.body.investmentName, " is ", req.body.currentValue);
 
@@ -237,13 +283,13 @@ router.post("/api/investment/:id", function (req, res) {
                                 console.log(req.body.costBasis);
 
                                 //make function call to add investment to the DB
-                                addInvestment(req.params, req.body, coinListObj.Data[req.body.investmentName].ImageUrl, res);
+                                addInvestment(req.params, req.body, coinListObj.Data[req.body.investmentName].ImageUrl, expressRes);
 
                             })
                     }
                     else
                         //make function call to add investment to the DB
-                        addInvestment(req.params, req.body, coinListObj.Data[req.body.investmentName].ImageUrl, res);
+                        addInvestment(req.params, req.body, coinListObj.Data[req.body.investmentName].ImageUrl, expressRes);
 
                 })
                 .catch(console.error);
@@ -252,70 +298,168 @@ router.post("/api/investment/:id", function (req, res) {
 
         //is investment a Stock
         case 'Stock':
+            // Stock price lookup api using Yahoo-finance API
 
-            // UserId: params.id,
-            // type: body.type,
-            // investmentName: body.investmentName,
-            // amount: body.amount,
-            // datePurchased: body.datePurchased,
-            // costBasis: body.costBasis,
-            // currentValue: body.currentValue,
-            // investmentImgUrl: imgUrl
+            //           
+            // first check to see if stock name is valid
+            //
 
-            req.body.datePurchased = moment(req.body.datePurchased, 'MM/DD/YYYY').format('YYYY-MM-DD');
+            var queryStockNameUrl = "http://d.yimg.com/aq/autoc?query=" + req.body.investmentName + "&region=IN&lang=en-UK"
 
+            //initialize that we have not found a match before search loop
+            var stockMatchBool = false;
 
-            // This replaces the deprecated snapshot() API
-            yahooFinance.quote({
-                symbol: req.body.investmentName,
-                modules: ['price', 'summaryDetail'] // see the docs for the full list
-            }, function (err, currentQuotes) {
-                console.log(currentQuotes);
-                //http://localhost:8080/api/stocks run this url in browser.
+            //GET request to search for Stock investmentName
+            request.get(queryStockNameUrl,
+                { json: true },
+                function (err, stockResponse, queryStockNameResp) {
+                    if (!err && stockResponse.statusCode === 200) {
+                        console.log(queryStockNameResp.ResultSet.Result[0].name);
 
-                console.log("current stock price", currentQuotes.price.regularMarketPrice);
+                        //strip out * from string in current index - will cause a crash if not handled
+                        var regexString = req.body.investmentName.replace(/\*/g, "");
+                        console.log(regexString);
 
-                //set current stock price
-                req.body.currentValue = currentQuotes.price.regularMarketPrice;
+                        //construct a regex string to look for in the coinList
+                        var regexVar = new RegExp(regexString, "gi");
 
-                //checking to see if the optional parameter for Cost Basis was sent
-                if (req.body.costBasis == 0) {
-                    // call historic Stock price lookup api using Yahoo-finance API
+                        console.log("regexvar", regexVar)
 
-                    yahooFinance.historical({
+                        //loop through Obj of search response from GET query
+                        for (i in queryStockNameResp.ResultSet.Result[0]) {
+
+                            //use the RegExp .test function - returns true if a match is found
+                            stockMatchBool = regexVar.test(queryStockNameResp.ResultSet.Result[0].name)
+
+                            //if a match was found
+                            //  - reset req.body.investmentName to proper symbol
+                            //  - set Image to store in DB for display by the Front End
+                            if (stockMatchBool == true) {
+                                console.log("found a match");
+
+                                //reset investmentName to proper symbol for doing API lookup of price, etc.
+                                req.body.investmentName = queryStockNameResp.ResultSet.Result[0].symbol;
+
+                                // //set image URL for use in Front End Display
+                                // //"https://www.cryptocompare.com" + coinListObj.Data[i].ImageUrl
+                                // req.body.investmentImgUrl = coinListObj.Data[i].ImageUrl;
+                                // console.log(req.body.investmentImgUrl);
+
+                                //stop looping we found a match
+                                break;
+                            }
+                        }
+                    }
+
+                    //if we didn't find a match - inform the user of the problem
+                    //leave immediately from this route and return error code to front end
+                    if (stockMatchBool == false) {
+                        console.log("invalid req.body.investmentName in investments POST handler");
+                        expressRes.status(500).send({ msg: "Invalid CryptoCoin entered.  Please try again." });
+                    }
+                    console.log(req.body.investmentName);
+
+                   
+
+                    // Now that we have the stock ticker symbol call current quoteAPI
+                    yahooFinance.quote({
                         symbol: req.body.investmentName,
-                        from: req.body.datePurchased,
-                        to: req.body.datePurchased,
-                        // period: 'd'  // 'd' (daily)
-                    }, function (err, quotes) {
-                        console.log("full quote response- historical", quotes[0]);
-                        console.log(quotes[0].adjClose)
-                        console.log(req.body.amount);
-                        //set the costBasis = amount of the coin * price of the coin at the time of purchase
-                        req.body.costBasis = req.body.amount * quotes[0].adjClose
+                        modules: ['price', 'summaryDetail'] // see the docs for the full list
+                    }, function (err, currentQuotes) {
+                        console.log(currentQuotes);
+                        //http://localhost:8080/api/stocks run this url in browser.
 
-                        console.log(req.body.costBasis);
+                        console.log("current stock price", currentQuotes.price.regularMarketPrice);
 
-                        //make function call to add investment to the DB
-                        addInvestment(req.params, req.body, "#", res);
+                        //set current stock value  = current price * amount (aka number of shares)
+                        req.body.currentValue = currentQuotes.price.regularMarketPrice * req.body.amount;
+
+                        //checking to see if the optional parameter for Cost Basis was sent
+                        if (req.body.costBasis == 0) {
+                            // call historic Stock price lookup api using Yahoo-finance API
+
+                            yahooFinance.historical({
+                                symbol: req.body.investmentName,
+                                from: req.body.datePurchased,
+                                to: req.body.datePurchased,
+                                // period: 'd'  // 'd' (daily)
+                            }, function (err, quotes) {
+                                console.log("full quote response- historical", quotes[0]);
+                                console.log(quotes[0].adjClose)
+                                console.log(req.body.amount);
+                                //set the costBasis = amount of the coin * price of the coin at the time of purchase
+                                req.body.costBasis = req.body.amount * quotes[0].adjClose
+
+                                console.log(req.body.costBasis);
+
+                                //make function call to add investment to the DB
+                                // addInvestment(req.params, req.body, "#", res);
+
+
+                                // INSERT new row into the Investments table using the UserID key
+                                db.Investment.create({
+                                    UserId: req.params.id,
+                                    type: req.body.type,
+                                    investmentName: req.body.investmentName,
+                                    amount: req.body.amount,
+                                    datePurchased: req.body.datePurchased,
+                                    costBasis: req.body.costBasis,
+                                    currentValue: req.body.currentValue,
+                                }).then(function (dbInvestmentResp) {
+                                    // We have access to the new todo as an argument inside of the callback function
+                                    expressRes.json(dbInvestmentResp);
+                                    // if(dbInvestmentResp.Investments[dbInvestmentResp.Investments.length].currentValue>10){
+                                        console.log("BIG SPENDER BIG SPENDER BIG SPENDER")
+                                    email(dbInvestmentResp.email,dbInvestmentResp.Investments[dbInvestmentResp.Investments.length-1].currentValue+" You're a big spender, ain't ya?")
+                                    // }
+                                })
+                                    .catch(function (dbInvestmentResp) {
+                                        console.log("we got an error", dbInvestmentResp);
+                                        // Whenever a validation or flag fails, an error is thrown
+                                        // We can "catch" the error to prevent it from being "thrown", 
+                                        // which could crash our node app
+                                        expressRes.status(500).send(dbInvestmentResp);
+                                    });
+
+                            });
+
+                        }
+                        else
+                            //make function call to add investment to the DB
+                            // addInvestment(req.params, req.body, "#", res);
+
+                            // INSERT new row into the Investments table using the UserID key
+                            db.Investment.create({
+                                UserId: req.params.id,
+                                type: req.body.type,
+                                investmentName: req.body.investmentName,
+                                amount: req.body.amount,
+                                datePurchased: req.body.datePurchased,
+                                costBasis: req.body.costBasis,
+                                currentValue: req.body.currentValue,
+                            }).then(function (dbInvestmentResp) {
+                                // We have access to the new todo as an argument inside of the callback function
+                                expressRes.json(dbInvestmentResp);
+
+                            })
+                                .catch(function (dbInvestmentResp) {
+                                    console.log("we got an error", dbInvestmentResp);
+                                    // Whenever a validation or flag fails, an error is thrown
+                                    // We can "catch" the error to prevent it from being "thrown", 
+                                    // which could crash our node app
+                                    expressRes.status(500).send(dbInvestmentResp);
+                                });
                     });
 
 
-
                 }
-                else
-                    //make function call to add investment to the DB
-                    addInvestment(req.params, req.body, "#", res);
-            });
-
-
-            // call Stock price lookup api using Yahoo-finance API
+            );
 
             break;
 
         default:
             console.log("invalid req.body.type in investments POST handler");
-            res.status(500).send({ msg: "invalid req.body.type in investments POST handler" });
+            expressRes.status(500).send({ msg: "invalid req.body.type in investments POST handler" });
 
     };
 
@@ -349,7 +493,7 @@ function addInvestment(params, body, imgUrl, res) {
         investmentImgUrl: imgUrl
     }).then(function (dbInvestmentResp) {
         // We have access to the new todo as an argument inside of the callback function
-        res.json(JSON.stringify(dbInvestmentResp));
+        res.json(dbInvestmentResp);
 
     })
         .catch(function (dbInvestmentResp) {

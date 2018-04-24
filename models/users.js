@@ -10,7 +10,7 @@ module.exports = function (sequelize, DataTypes) {
         isAlpha: true,
         len: {
           args: [3, 20],
-          msg: "Your username is not long enough or too long.  It must be between 3 and 20 characters."
+          msg: "Your username is not the correct length.  It must be between 3 and 20 characters."
         }
       }
 
@@ -24,7 +24,7 @@ module.exports = function (sequelize, DataTypes) {
         isAlpha: true,
         len: {
           args: [3, 20],
-          msg: "Your first name is not long enough or too long.  It must be between 3 and 20 characters."
+          msg: "Your first name is not the correct length.  It must be between 3 and 20 characters."
         }
 
       }
@@ -37,7 +37,7 @@ module.exports = function (sequelize, DataTypes) {
         isAlpha: true,
         len: {
           args: [3, 20],
-          msg: "Your last name is not long enough or too long.  It must be between 3 and 20 characters."
+          msg: "Your last name is not the correct length.  It must be between 3 and 20 characters."
         }
       }
     },
@@ -47,7 +47,7 @@ module.exports = function (sequelize, DataTypes) {
       validate: {
         len: {
           args: [6, 10],
-          msg: "Your password length must be atleast 6 characters and no morethan 10 characters."
+          msg: "Your password length must be at least 6 characters and no more than 10 characters."
         }
       }
     },
@@ -59,16 +59,15 @@ module.exports = function (sequelize, DataTypes) {
         notEmpty: true,
         len: {
           args: [3, 255],
-          msg: "Your email is not long enough or too long. "
+          msg: "Your email is not the correct length. "
         }
 
       }
     },
     cellPhone: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING,
       allowNull: true,
       validate: {
-        isNumeric: true,
         len: {
           args: [10],
           msg: "phone number must be 10 digits"
@@ -76,6 +75,7 @@ module.exports = function (sequelize, DataTypes) {
       }
     }
   });
+  
 
   User.associate = function (models) {
     // Associating Author with Posts

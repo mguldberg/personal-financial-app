@@ -1,37 +1,128 @@
+<style>
+    body {
+        background: rgb(219, 241, 247);
+    }
+    .radio-buttons{
+      max-width:100%,
+    }
+    .card {
+        padding: 10px;
+        border: solid black 1px;
+        margin-top:0px;
+       
+        margin-bottom:10px;
+    }
+    h1 {
+        text-align: center;
+        color: black;
+        background-color: rgb(219, 241, 247);
+    }
+#amount,#crypto,#cost-basis,#investment-name{
+  max-width:100%
+}
+    * {
+        position: relative;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family:Arial,'san-serif';
+    }
+    .jumbotron{
+        background: rgb(219, 241, 247);
+        margin-bottom:0px;
+       margin-top:0px;
+       padding: 0.5em 0.6em;
+    }
+  .display-button{
+        margin-top:10px;
+        margin-bottom:10px;
+    }
+    
+    input:hover {
+        background: rgb(177, 221, 233);
+    }
+</style>
    <div class="container">
+      <div class="jumbotron">
+        <h1 class="display-4">Investments</h1>
+        <h3 id="first-name"></h3>
+        <hr class="my-4">
+       
+    </div>
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-4">
+              <div class="card">
                     <form class="investments">
-                            Type:
+                          <div class="btn-group btn-group-toggle radio-buttons" data-toggle="buttons">
+                                <label class="btn btn-secondary active">
+                                  <input type="radio" name="type" id="stock" autocomplete="off" value="Stock"checked> Stock
+                                </label>
+                                <label class="btn btn-secondary">
+                            <input type="radio" name="type" id="crypto" autocomplete="off" value="Crypto Currency"> Crypto
+                                </label>
+                            </div>
+                            {{!-- Type:
                             <br>
-                            <input type="radio" name="type" value="Crypto Currency" checked> Crypto Currency
+                            <input type="radio" name="type" id="crypto" value="Crypto Currency" checked> Crypto Currency
                             <br>
-                            <input type="radio" name="type" value="Stock"> Stock
+                            <input type="radio" name="type" id="stock" value="Stock"> Stock --}}
                             <br> Investment Name:
                             <br>
-                            <input type="text" name="investment-name" id="investment-name" placeholder="Facebook">
-                            <br> Amount:
+                            <input type="text" name="investment-name" required id="investment-name" placeholder="Facebook">
                             <br>
-                            <input type="text" name="amount" id="amount" placeholder="10">
-                            <br> Cost-Basis (default zero):
+                             Number of Stocks or Crypto Units:
+                            <br>
+                            <input type="text" name="amount" id="amount" required placeholder="10"><br>
+                             Cost-Basis (auto decides at 0):
                             <br>
                             <input type="text" name="cost-basis" id="cost-basis" value="0" placeholder="0">
                             <br> Date Purchased:
                             <br>
                             <input type="date" name="date" id="date"  >
                             <br>
-                            <input type="submit" value="Submit">
+                            <br>
+                            <input type="submit" class="submit-button btn btn-secondary btn-lg" value="Submit">
+                            <br>    
                     </form>
+                    </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                 <div id="container" style="min-width: 310px; max-width: 600px; height: 400px; margin: 0 auto"></div>
+             <div class="col-md-8">
+                 <div class="card" id="container" style="min-width: 310px; max-width: 600px; height: 400px; margin: 0 auto"></div>
     <!-- Data from www.netmarketshare.com. Select Browsers => Desktop share by version. Download as tsv. -->
                 <pre id="tsv" style="display:none">
                 </pre>
             </div>
         </div>
+    
+    <div class="row">
+        <div class="col-md-12">
+          <div class="text-center">
+            <button data-toggle="collapse" class="btn btn-secondary btn-block display-button" data-target="#demo" >Display Table</button>
+          </div>
+            <div id="demo" class="collapse">
+              <h1>Stocks and Crypto Currencies</h1>
+               <div class="table-div"></div>
+            </div>
+        </div>
     </div>
-
+    </div>
+   <div class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div id="error-text"></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
    <script src="js/investments.js"></script>

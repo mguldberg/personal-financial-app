@@ -3,12 +3,11 @@ console.log("test")
 
 
 
-
 $(".sign-up").on("submit", function (event) {
     // Make sure to preventDefault on a submit event.
     event.preventDefault();
-    var signUpData={
-        firstName:$("#firstName").val().trim(),
+    var signUpData = {
+        firstName: $("#firstName").val().trim(),
         lastName: $("#lastName").val().trim(),
         username: $("#username1").val().trim(),
         password: $("#password1").val().trim(),
@@ -19,18 +18,30 @@ $(".sign-up").on("submit", function (event) {
     $.ajax("/api/users", {
         type: "POST",
         data: signUpData
-    }).then(
+    }).done(
         function (data) {
             console.log(data)
-        }
-    );
+            location.reload()
+        })
+        .fail(function (err) {
+            console.log("getting an error from the database", err.status, err.statusText);
+            console.log(err.status);
+            console.log(err.responseJSON.errors["0"]);
+            $(".modal-title").text("HTTP Error : " + err.status + " " + err.statusText);
+            $("#error-text").text(err.responseJSON.errors["0"].message);
+            $(".modal").modal('toggle');
+        });
+
+
 });
+$(".sign-in").on("submit",function(event){
+event.preventDefault();
+})
 
-
-$(".sign-in").on("submit", function (event) {
+$("#submit").on("click", function (event) {
     // Make sure to preventDefault on a submit event.
-    var signInData={
-        username:$("#username2").val().trim(),
+    var signInData = {
+        username: $("#username2").val().trim(),
         password: $("#password2").val().trim(),
     }
     event.preventDefault();
@@ -42,17 +53,23 @@ $(".sign-in").on("submit", function (event) {
         function (data) {
             console.log(data)
             localStorage.setItem("userID", data.id);
-           var localVarStored = localStorage.getItem("userID");
+            var localVarStored = localStorage.getItem("userID");
 
-           localStorage.setItem("firstName",data.firstName);
-         
+            localStorage.setItem("firstName", data.firstName);
+
             console.log(localVarStored)
             //renderExpenses();
-            if(data){
-                window.location="/expenses"
+            if (data) {
+                window.location = "/expenses"
+            }
+            else{
+                $(".modal-title").text("Invalid");
+            $("#error-text").text("Username or password is incorrect.");
+            $(".modal").modal('toggle');
             }
         }
-        
+
     );
-    
+
+
 });

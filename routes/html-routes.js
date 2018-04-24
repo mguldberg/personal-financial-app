@@ -10,7 +10,7 @@ var db = require("../models");
 router.get("/", function (req, res) {
     db.User.findAll({}).then(function (data) {
       var hbsObject = {
-        userData: data
+        userData: "data"
       };
       console.log(hbsObject);
       res.render("users", hbsObject);
