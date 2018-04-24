@@ -23,9 +23,7 @@ $("#demo").on('click', '.delete', function() {
         }
     )
 })
-$(".display-button").click(function() {
-    $('#demo').scrollIntoView()
-});
+
 //When the submit button is pressed...
 $(".investments").on("submit", function (event) {
     console.log("test")
