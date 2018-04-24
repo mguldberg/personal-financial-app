@@ -165,6 +165,18 @@ router.delete("/api/expenses/:id", function (req, res) {
     });
 
 });
+// DELETE route for deleting expenses.
+router.delete("/api/investment/:id", function (req, res) {
+    // specify which Expense we want to destroy with "where"
+    db.Invest.destroy({
+        where: {
+            id: req.params.id
+        }
+    }).then(function (dbInvestResp) {
+        res.json(dbInvestResp);
+    });
+
+});
 // Handles adding user to DB
 router.post("/api/investment/:id", function (req, expressRes) {
 
