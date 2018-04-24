@@ -10,7 +10,7 @@ module.exports = function (sequelize, DataTypes) {
         isAlpha: true,
         len: {
           args: [3, 20],
-          msg: "Your username is not long enough or too long.  It must be between 3 and 20 characters."
+          msg: "Your username is not the correct length.  It must be between 3 and 20 characters."
         }
       }
 
@@ -24,7 +24,7 @@ module.exports = function (sequelize, DataTypes) {
         isAlpha: true,
         len: {
           args: [3, 20],
-          msg: "Your first name is not long enough or too long.  It must be between 3 and 20 characters."
+          msg: "Your first name is not the correct length.  It must be between 3 and 20 characters."
         }
 
       }
@@ -37,7 +37,7 @@ module.exports = function (sequelize, DataTypes) {
         isAlpha: true,
         len: {
           args: [3, 20],
-          msg: "Your last name is not long enough or too long.  It must be between 3 and 20 characters."
+          msg: "Your last name is not the correct length.  It must be between 3 and 20 characters."
         }
       }
     },
@@ -59,7 +59,7 @@ module.exports = function (sequelize, DataTypes) {
         notEmpty: true,
         len: {
           args: [3, 255],
-          msg: "Your email is not long enough or too long. "
+          msg: "Your email is not the correct length. "
         }
 
       }

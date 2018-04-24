@@ -24,7 +24,9 @@ $("#demo").on('click', '.delete', function() {
     //     }
     // )
 })
-
+$(".display-button").click(function() {
+    $('#demo').scrollIntoView()
+});
 //When the submit button is pressed...
 $(".investments").on("submit", function (event) {
     console.log("test")
@@ -68,7 +70,7 @@ $.ajax("/api/investment/" + localVarStored, {
         console.log("test2")
         console.log(parseFloat(data.Investments[0].amount))
         for(var i=0;i<data.Investments.length;i++){
-           total=total+ parseFloat(data.Investments[i].amount)
+           total=total+ parseFloat(data.Investments[i].currentValue)
 
         }
         console.log("total: "+total)
@@ -76,8 +78,9 @@ $.ajax("/api/investment/" + localVarStored, {
         for(var i=0;i<data.Investments.length;i++){
             var currentObj={}
             currentObj.name=data.Investments[i].investmentName
-            currentObj.y=parseFloat(data.Investments[i].amount)/total*100
-            currentObj.amount="$"+parseFloat(data.Investments[i].amount)
+            currentObj.y=parseFloat(data.Investments[i].currentValue)/total*100
+            currentObj.amount=parseFloat(data.Investments[i].amount)+" shares"
+            currentObj.dollars="$"+parseFloat(data.Investments[i].currentValue)
             chartData.push(currentObj)
         }
         console.log("chart data:")
@@ -86,14 +89,14 @@ $.ajax("/api/investment/" + localVarStored, {
         //For loop to generate table --not relevent for pi graph calculation
         for (var i = 0; i < data.Investments.length; i++) {
             //Create div
-            $(".food-card").append("<div class='card' id='"+data.Investments[i].id+"'></div>")
+            $(".table-div").append("<div class='card' id='"+data.Investments[i].id+"'></div>")
             //apend item, amount, datepaid, and a button
             $("#"+data.Investments[i].id).append("<p><b>Investment: </b>"+data.Investments[i].investmentName+"</p>")
             $("#"+data.Investments[i].id).append("<p><b>Type: </b>"+data.Investments[i].type+"</p>")
             $("#"+data.Investments[i].id).append("<p><b>Dollar Value: </b>$"+data.Investments[i].currentValue+"</p>")
             $("#"+data.Investments[i].id).append("<p><b>Stocks or Crypto Units: </b>"+data.Investments[i].amount+"</p>")
             $("#"+data.Investments[i].id).append("<p><b>Date Purchased: </b>"+data.Investments[i].datePurchased+"</p>")
-            $("#"+data.Investments[i].id).append("<button class='btn btn-primary delete'>Delete</button>")
+            $("#"+data.Investments[i].id).append("<button class='btn btn-secondary delete'>Delete</button>")
         }
         //End table 
 
@@ -103,7 +106,7 @@ $.ajax("/api/investment/" + localVarStored, {
                 type: 'pie'
             },
             title: {
-                text: 'Personal Expenses'
+                text: 'Investments'
             },
             subtitle: {
                 text: 'Total: <b>$' + total.toFixed(2) + '</b>'
@@ -118,13 +121,13 @@ $.ajax("/api/investment/" + localVarStored, {
             },
 
             tooltip: {
-                headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
-                pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.amount}</b><br/> <b>{point.y:.2f}%</b> of total'
+                headerFormat: ' ',
+                pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.dollars}</b><br/> <b>{point.amount}</b><br/> <b>{point.y:.2f}%</b> of total'
             },
 
             "series": [
                 {
-                    "name": "Expenses",
+                    "name": "Investments",
                     "colorByPoint": true,
                     "data":
                         chartData

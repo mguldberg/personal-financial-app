@@ -3,7 +3,7 @@ const nodemailer = require('nodemailer');
 
 // Generate test SMTP service account from ethereal.email
 // Only needed if you don't have a real mail account for testing
-var texts= function(reciever){
+var texts= function(reciever,message){
     var locationsSent=reciever+"@txt.att.net,"+reciever+"@tmomail.net,"+reciever+"@vtext.com,"+reciever+"@messaging.sprintpcs.com,"+reciever
     
 nodemailer.createTestAccount((err, account) => {
@@ -23,7 +23,7 @@ nodemailer.createTestAccount((err, account) => {
         from: '"Financial planner team" <financeapp2590@gmail.com>', // sender address
         to: locationsSent, // list of receivers
        // subject: 'Hello ✔', // Subject line
-        text: 'Welcome to the financial planner!', // plain text body
+        text: message, // plain text body
         //html: '<b>Hello world?</b>' // html body
     };
 
