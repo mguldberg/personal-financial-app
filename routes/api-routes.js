@@ -211,7 +211,7 @@ router.post("/api/investment/:id", function (req, expressRes) {
             //API call requires an array of currencies
             var currencyArray = [req.body.investmentName];
 
-            req.body.datePurchased = moment(req.body.datePurchased, 'YYYY-MM-DD').format('YYYY-MM-DD');
+            
 
             console.log("date purchased ", req.body.datePurchased)
 
@@ -318,7 +318,7 @@ router.post("/api/investment/:id", function (req, expressRes) {
                     }
                     console.log(req.body.investmentName);
 
-                    req.body.datePurchased = moment(req.body.datePurchased, 'MM/DD/YYYY').format('YYYY-MM-DD');
+                   
 
                     // Now that we have the stock ticker symbol call current quoteAPI
                     yahooFinance.quote({

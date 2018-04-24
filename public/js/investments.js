@@ -3,13 +3,29 @@ var localVarStored = localStorage.getItem("userID");
 console.log(localVarStored)
 //call first name and deliver to page
 var localFirstName=localStorage.getItem("firstName")
-$("#first-name").append("<h1>Hello "+localFirstName+"!")
+$("#first-name").append("Hello "+localFirstName+"!")
 
 console.log(localVarStored)
 //Set default date to today
 document.getElementById('date').valueAsDate = new Date();
 
-console.log("test")
+//When a delete button is pressed...
+$("#demo").on('click', '.delete', function() {
+    var thisId=$(this).parent().attr("id");
+    console.log(thisId)
+    //GET API ROUTE AND UNCOMMENT THIS
+    // $.ajax("/api/something/" + localVarStored, {
+    //     type: "DELETE",
+    //     data: thisId
+    // }).then(
+    //     function (data) {
+    //         console.log(data)
+    //        location.reload();
+    //     }
+    // )
+})
+
+//When the submit button is pressed...
 $(".investments").on("submit", function (event) {
     console.log("test")
 
@@ -66,6 +82,20 @@ $.ajax("/api/investment/" + localVarStored, {
         }
         console.log("chart data:")
         console.log(chartData)
+
+        //For loop to generate table --not relevent for pi graph calculation
+        for (var i = 0; i < data.Investments.length; i++) {
+            //Create div
+            $(".food-card").append("<div class='card' id='"+data.Investments[i].id+"'></div>")
+            //apend item, amount, datepaid, and a button
+            $("#"+data.Investments[i].id).append("<p><b>Investment: </b>"+data.Investments[i].investmentName+"</p>")
+            $("#"+data.Investments[i].id).append("<p><b>Type: </b>"+data.Investments[i].type+"</p>")
+            $("#"+data.Investments[i].id).append("<p><b>Dollar Value: </b>$"+data.Investments[i].currentValue+"</p>")
+            $("#"+data.Investments[i].id).append("<p><b>Stocks or Crypto Units: </b>"+data.Investments[i].amount+"</p>")
+            $("#"+data.Investments[i].id).append("<p><b>Date Purchased: </b>"+data.Investments[i].datePurchased+"</p>")
+            $("#"+data.Investments[i].id).append("<button class='btn btn-primary delete'>Delete</button>")
+        }
+        //End table 
 
         //Render Pi Chart
         Highcharts.chart('container', {
