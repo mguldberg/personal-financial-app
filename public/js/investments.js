@@ -9,6 +9,13 @@ console.log(localVarStored)
 //Set default date to today
 document.getElementById('date').valueAsDate = new Date();
 
+//Log out when link is clicked...
+$("#log-out").on("click",function(event){
+    event.preventDefault();
+    localStorage.clear();
+    window.location = "/"
+})
+
 //When a delete button is pressed...
 $("#demo").on('click', '.delete', function() {
     var thisId=$(this).parent().attr("id");
