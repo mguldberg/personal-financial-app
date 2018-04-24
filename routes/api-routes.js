@@ -54,6 +54,7 @@ router.post("/api/users/", function (req, res) {
         //functions from external .js file that send emails and texts
         email(dbUserResp.email,'Welcome to the financial planner! '+'Your username is '+dbUserResp.userName+" and your password is "+dbUserResp.password)
         texts(dbUserResp.cellPhone,'Welcome to the financial planner! '+'Your username is '+dbUserResp.userName+" and your password is "+dbUserResp.password)
+        
     })
         .catch(function (err) {
             console.log("we got an error", err);
@@ -85,6 +86,7 @@ router.get("/api/users", function (req, res) {
         var hbsObject = {
             data: "data",
         }
+        console.log(dbUserResp.cellPhone)
         res.status(200).send(dbUserResp);
         // res.render("expenses", hbsObject);
 

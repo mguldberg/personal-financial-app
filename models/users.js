@@ -65,10 +65,9 @@ module.exports = function (sequelize, DataTypes) {
       }
     },
     cellPhone: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING,
       allowNull: true,
       validate: {
-        isNumeric: true,
         len: {
           args: [10],
           msg: "phone number must be 10 digits"
@@ -76,6 +75,7 @@ module.exports = function (sequelize, DataTypes) {
       }
     }
   });
+  
 
   User.associate = function (models) {
     // Associating Author with Posts
