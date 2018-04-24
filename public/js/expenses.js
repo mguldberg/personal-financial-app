@@ -8,6 +8,22 @@ $("#first-name").append("Hello "+localFirstName+"!")
 //Set default date as today
 document.getElementById('date').valueAsDate = new Date();
 
+//When a delete button is pressed...
+$("#demo").on('click', '.delete', function() {
+    var thisId=$(this).parent().attr("id");
+    console.log(thisId)
+    //GET API ROUTE AND UNCOMMENT THIS
+    // $.ajax("/api/something/" + localVarStored, {
+    //     type: "DELETE",
+    //     data: thisId
+    // }).then(
+    //     function (data) {
+    //         console.log(data)
+    //        location.reload();
+    //     }
+    // )
+})
+
 //When submit button is pressed...
 $(".expenses").on("submit", function (event) {
     // Make sure to preventDefault on a submit event.
@@ -81,7 +97,45 @@ $.ajax("/api/expenses/" + localVarStored, {
         console.log(housingArr)
         console.log(automobileArr)
         console.log(otherArr)
-
+        //For loops to create table data in DOM-- not relevent to graph calculation
+        for (var i = 0; i < foodArr.length; i++) {
+            //Create div
+            $(".food-card").append("<div class='card' id='"+foodArr[i].id+"'></div>")
+            //apend item, amount, datepaid, and a button
+            $("#"+foodArr[i].id).append("<p><b>Item: </b>"+foodArr[i].itemName+"</p>")
+            $("#"+foodArr[i].id).append("<p><b>Amount($): </b>"+foodArr[i].amount+"</p>")
+            $("#"+foodArr[i].id).append("<p><b>Date Paid: </b>"+foodArr[i].datePaid+"</p>")
+            $("#"+foodArr[i].id).append("<button class='btn btn-secondary delete'>Delete</button>")
+        }
+        for (var i = 0; i < entertainmentArr.length; i++) {
+            $(".entertainment-card").append("<div class='card' id='"+entertainmentArr[i].id+"'></div>")
+            $("#"+entertainmentArr[i].id).append("<p><b>Item: </b>"+entertainmentArr[i].itemName+"</p>")
+            $("#"+entertainmentArr[i].id).append("<p><b>Amount($): </b>"+entertainmentArr[i].amount+"</p>")
+            $("#"+entertainmentArr[i].id).append("<p><b>Date Paid: </b>"+entertainmentArr[i].datePaid+"</p>")
+            $("#"+entertainmentArr[i].id).append("<button class='btn btn-secondary delete'>Delete</button>")
+        }
+        for (var i = 0; i < housingArr.length; i++) {
+            $(".housing-card").append("<div class='card' id='"+housingArr[i].id+"'></div>")
+            $("#"+housingArr[i].id).append("<p><b>Item: </b>"+housingArr[i].itemName+"</p>")
+            $("#"+housingArr[i].id).append("<p><b>Amount($): </b>"+housingArr[i].amount+"</p>")
+            $("#"+housingArr[i].id).append("<p><b>Date Paid: </b>"+housingArr[i].datePaid+"</p>")
+            $("#"+housingArr[i].id).append("<button class='btn btn-secondary delete'>Delete</button>")
+        }
+        for (var i = 0; i < automobileArr.length; i++) {
+            $(".automobile-card").append("<div class='card' id='"+automobileArr[i].id+"'></div>")
+            $("#"+automobileArr[i].id).append("<p><b>Item: </b>"+automobileArr[i].itemName+"</p>")
+            $("#"+automobileArr[i].id).append("<p><b>Amount($): </b>"+automobileArr[i].amount+"</p>")
+            $("#"+automobileArr[i].id).append("<p><b>Date Paid: </b>"+automobileArr[i].datePaid+"</p>")
+            $("#"+automobileArr[i].id).append("<button class='btn btn-secondary delete'>Delete</button>")
+        }
+        for (var i = 0; i < otherArr.length; i++) {
+            $(".other-card").append("<div class='card' id='"+otherArr[i].id+"'></div>")
+            $("#"+otherArr[i].id).append("<p><b>Item: </b>"+otherArr[i].itemName+"</p>")
+            $("#"+otherArr[i].id).append("<p><b>Amount($): </b>"+otherArr[i].amount+"</p>")
+            $("#"+otherArr[i].id).append("<p><b>Date Paid: </b>"+otherArr[i].datePaid+"</p>")
+            $("#"+otherArr[i].id).append("<button class='btn btn-secondary delete'>Delete</button>")
+        }
+        //End for loops for chart generation
         //Variables to find totals $ spent in each category 
         var foodTotal = 0;
         var entertainmentTotal = 0;

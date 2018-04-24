@@ -2,19 +2,25 @@
     body {
         background: rgb(219, 241, 247);
     }
-
+    .radio-button-single{
+        margin:5px;
+    }
     .card {
         padding: 10px;
         border: solid black 1px;
         margin-top:0px;
+       
+       
+        margin-bottom:10px;
     }
-
     h1 {
         text-align: center;
         color: black;
         background-color: rgb(219, 241, 247);
     }
-
+ .radio-buttons{
+      max-width:100%
+    }
     * {
         position: relative;
         box-sizing: border-box;
@@ -29,8 +35,13 @@
        margin-top:0px;
        padding: 0.5em 0.6em;
     }
-    
-
+    .display-button{
+       margin-top:10px;
+       margin-bottom:10px;
+    }
+#amount,#item,#date{
+  max-width:100%
+}
     input:hover {
         background: rgb(177, 221, 233);
     }
@@ -38,19 +49,43 @@
 <div class="container">
     <div class="jumbotron">
         <h1 class="display-4">Personal Expenses</h1>
-        <p class="lead"id="first-name"></p>
+        <h3 id="first-name"></h3>
         <hr class="my-4">
     </div>
+    <div>
+        <button type="button" class="btn btn-secondary btn-lg" disabled>Button</button>
+        <button type="button" class="btn btn-secondary btn-lg" disabled>Button</button>
+        <button type="button" class="btn btn-secondary btn-lg" disabled>Button</button>
+    </div>
     <div class="row">
-        <div class="col-md-4 card">
+        <div class="col-md-4">
+            <div class="card input-card">
             <form class="expenses">
                 Item:
                 <br>
-                <input type="text" id="item" name="item" placeholder="ham">
-                <br> Amount:
+                <input type="text" required id="item" name="item" placeholder="ham">
+                <br> Amount($):
                 <br>
-                <input type="number" min="0" name="amount" id="amount" placeholder="10">
-                <br> Category:
+                <input type="number" required min="0" name="amount" id="amount" placeholder="10">
+                <br>
+                <div class="btn-group-toggle radio-buttons" data-toggle="buttons">
+                            <label class="btn btn-secondary active radio-button-single">
+                            <input type="radio" name="category" id="food" autocomplete="off" value="Food"checked> Food
+                                </label>
+                                <label class="btn btn-secondary radio-button-single">
+                                  <input type="radio" name="category" id="entertainment" autocomplete="off" value="Entertainment"> Entertainment
+                                </label>
+                                <label class="btn btn-secondary radio-button-single">
+                            <input type="radio" name="category" id="housing" autocomplete="off" value="Housing"> Housing
+                                </label>
+                                <label class="btn btn-secondary radio-button-single">
+                                  <input type="radio" name="category" id="automobile" autocomplete="off" value="Automobile"> Automobile
+                                </label>
+                                <label class="btn btn-secondary radio-button-single">
+                                  <input type="radio" name="category" id="other" autocomplete="off" value="Other"> Other
+                                </label>
+                </div>
+                 {{!-- Category:
                 <br>
                 <input type="radio" name="category" id="food" value="Food" checked>
                 <label class="form-check-label" for="food">Food</label>
@@ -65,20 +100,45 @@
                 <label class="form-check-label" for="automobile">Automobile</label>
                 <br>
                 <input type="radio" name="category" value="Other">
-                <label class="form-check-label" for="other">Other</label>
+                <label class="form-check-label" for="other">Other</label> --}}
                 <br> Date Purchased (optional):
                 <br>
                 <input type="date" name="date" id="date" placeholder="Today">
                 <br>
                 <br>
-                <input type="submit" class="btn btn-primary btn-lg" value="Submit">
+                <input type="submit" class="btn btn-secondary btn-lg" value="Submit">
             </form>
+            </div>
         </div>
         <div class="col-md-8">
             <div class="card" id="container" style="min-width: 310px; max-width: 600px; height: 400px; margin: 0 auto"></div>
             <!-- Data from www.netmarketshare.com. Select Browsers => Desktop share by version. Download as tsv. -->
             <pre id="tsv" style="display:none">
                 </pre>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="text-center">
+                <button data-toggle="collapse" class="btn btn-secondary btn-block display-button" data-target="#demo">Display Table</button>
+            </div>
+            <div id="demo" class="collapse">
+               <div class="card food-card">
+                   <h2 class="card-title">Food</h2>
+                    </div>
+               <div class="card entertainment-card">
+                   <h2 class="card-title">Entertainment</h2>
+                   </div>
+               <div class="card housing-card">
+                   <h2 class="card-title">Housing</h2>
+                   </div>
+               <div class="card automobile-card">
+                   <h2 class="card-title">Automobile</h2>
+                   </div>
+               <div class="card other-card">
+                   <h2 class="card-title">Other</h2>
+                   </div>
+            </div>
         </div>
     </div>
 </div>

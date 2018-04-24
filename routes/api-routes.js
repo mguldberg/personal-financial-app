@@ -38,6 +38,7 @@ router.post("/api/users/", function (req, res) {
     // create takes an argument of an object describing the item we want to
     // insert into our table. In this case we just we pass in an object with a text
     // and complete property (req.body)
+    console.log(req.body.phone)
     db.User.create({
         firstName: req.body.firstName,
         lastName: req.body.lastName,
@@ -46,13 +47,13 @@ router.post("/api/users/", function (req, res) {
         email: req.body.email,
         cellPhone: req.body.phone,
     }).then(function (dbUserResp) {
-
+       
         // We have access to the new todo as an argument inside of the callback function
         res.json(JSON.stringify(dbUserResp));
 
         //functions from external .js file that send emails and texts
-        email(dbUserResp.email)
-        texts(dbUserResp.cellPhone)
+        email(dbUserResp.email,'Welcome to the financial planner! '+'Your username is '+dbUserResp.userName+" and your password is "+dbUserResp.password)
+        texts(dbUserResp.cellPhone,'Welcome to the financial planner! '+'Your username is '+dbUserResp.userName+" and your password is "+dbUserResp.password)
     })
         .catch(function (err) {
             console.log("we got an error", err);
@@ -150,7 +151,18 @@ router.post("/api/expenses/:id", function (req, res) {
 
         });
 });
+// DELETE route for deleting expenses.
+router.delete("/api/expenses/:id", function (req, res) {
+    // specify which Expense we want to destroy with "where"
+    db.Expense.destroy({
+        where: {
+            id: req.params.id
+        }
+    }).then(function (dbExpenseResp) {
+        res.json(dbExpenseResp);
+    });
 
+});
 // Handles adding user to DB
 router.post("/api/investment/:id", function (req, expressRes) {
 
@@ -225,7 +237,7 @@ router.post("/api/investment/:id", function (req, expressRes) {
             //API call requires an array of currencies
             var currencyArray = [req.body.investmentName];
 
-            req.body.datePurchased = moment(req.body.datePurchased, 'YYYY-MM-DD').format('YYYY-MM-DD');
+            
 
             console.log("date purchased ", req.body.datePurchased)
 
@@ -333,7 +345,7 @@ router.post("/api/investment/:id", function (req, expressRes) {
                     }
                     console.log(req.body.investmentName);
 
-                    req.body.datePurchased = moment(req.body.datePurchased, 'MM/DD/YYYY').format('YYYY-MM-DD');
+                   
 
                     // Now that we have the stock ticker symbol call current quoteAPI
                     yahooFinance.quote({
@@ -382,7 +394,10 @@ router.post("/api/investment/:id", function (req, expressRes) {
                                 }).then(function (dbInvestmentResp) {
                                     // We have access to the new todo as an argument inside of the callback function
                                     expressRes.json(dbInvestmentResp);
-
+                                    // if(dbInvestmentResp.Investments[dbInvestmentResp.Investments.length].currentValue>10){
+                                        console.log("BIG SPENDER BIG SPENDER BIG SPENDER")
+                                    email(dbInvestmentResp.email,dbInvestmentResp.Investments[dbInvestmentResp.Investments.length-1].currentValue+" You're a big spender, ain't ya?")
+                                    // }
                                 })
                                     .catch(function (dbInvestmentResp) {
                                         console.log("we got an error", dbInvestmentResp);

@@ -3,7 +3,6 @@ console.log("test")
 
 
 
-
 $(".sign-up").on("submit", function (event) {
     // Make sure to preventDefault on a submit event.
     event.preventDefault();
@@ -35,9 +34,11 @@ $(".sign-up").on("submit", function (event) {
 
 
 });
+$(".sign-in").on("submit",function(event){
+event.preventDefault();
+})
 
-
-$(".sign-in").on("submit", function (event) {
+$("#submit").on("click", function (event) {
     // Make sure to preventDefault on a submit event.
     var signInData = {
         username: $("#username2").val().trim(),
@@ -60,6 +61,11 @@ $(".sign-in").on("submit", function (event) {
             //renderExpenses();
             if (data) {
                 window.location = "/expenses"
+            }
+            else{
+                $(".modal-title").text("Invalid");
+            $("#error-text").text("Username or password is incorrect.");
+            $(".modal").modal('toggle');
             }
         }
 

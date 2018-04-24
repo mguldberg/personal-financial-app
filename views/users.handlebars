@@ -1,58 +1,56 @@
-          <style>            
+<style>            
  
 body {
     line-height: 30px;
     background-image: url(../images/background.jpg);
     background-size: cover;
     background-position: center;
-    color: black;
-    background-color: black;
+    background-color: rgb(219, 241, 247);
     width: 100%;
     padding: 0px;
     margin: auto 0;
     overflow: auto;
   
 }
+#password2{
+  margin-bottom:20px;
+}
+.sign-up-button1{
+  float:right;
+}
 * {
     position: relative;
     box-sizing: border-box;
 }
 * {
-    font-family: 'Roboto', sans-serif !important;
+    font-family: 'Ariel', sans-serif !important;
 }
-h1 {
-    color: aliceblue;
-    text-shadow: 2px 2px 2px yellow;
+#submit2{
+  margin-top:20px;
 }
-h1, h3, .card-body {
-    color: rgb(72, 198, 240);
-}
+
 input:hover {
     background: rgb(177, 221, 233);   
 }
-button{
-    border-color: rgb(64, 136, 136)!important;
-    background-color: rgb(214, 238, 240);
-}
+
 .jumbotron {
     width: 100%;
-    background: rgb(105, 105, 105);
-    background: rgba(105, 105, 105, .5);    
-    color: #fff;
-    text-shadow: 2px 2px 4px #000000;  
-    border: 1px solid paleturquoise !important;
+    background-color: rgb(219, 241, 247);  
+   
+    
     top:15px;
 }
 .card {
-    background-color: rgba(0,0,0,.5);
-    border-color: paleturquoise;
+   
+    border-color: black;
+    margin-bottom:20px;
 }
 .form-control{
   border-style: solid;
     border-width: 2px;
     background-color: #ffffff;
     border-radius: 6px;
-    width:350px;
+   
 }
 
 </style>
@@ -62,102 +60,55 @@ button{
                 </div> <!-- Jumbotron End -->  
                 
 <div class="row">
-  <div class="col-sm-2">
-    <div class="card">
-      <div class="card-body">
-        <div class="card" >
-                <div class="card-body">
-                  <h5 class="card-title">Card title</h5>
-                </div>
-              </div>
-              <div class="card">
-                    <div class="card-body">
-                      <h5 class="card-title">Card title</h5>
-                    </div>
-              </div><!--card End-->
-            </div><!--card-bdody End-->
-          </div><!--card End-->
-        </div><!--col-sm-2 End-->
-  
-<div class="col-sm-8">
+    
+<div class="col-sm-12">
   <div class="card">
         <div class="card-body">
          <h5 class="card-title">Sign In</h5>
          
           <form class="sign-in">
             <h5>Username:</h5>
-            <input type="text" class="form-control" id="username2" name="username" placeholder="username">
+            <input type="text"  class="form-control" id="username2" name="username" placeholder="username">
+ 
             <h5>Password:</h5>
-            <input type="password" class="form-control" id="password2" name="username" placeholder="password">
-            <button type="submit" class="btn btn-default" id="submit">Submit</button>
+            <input type="password"  class="form-control" id="password2" name="username" placeholder="password">
+            <button type="submit" class="btn btn-secondary first-submit" id="submit">Submit</button>
+            <button data-toggle="collapse" class="btn btn-secondary sign-up-button1" id="display-signup"data-target="#demo">Sign up</button>
             </form>
            
-           
-            <button data-toggle="collapse" data-target="#demo">Sign up</button>
+       </div>     
+      </div>
             <div id="demo" class="collapse">
   
-            <!--<div id="accordion" role="tablist" aria-multiselectable="true">
-            <br>
-            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-          <div class="card-header" role="tab" id="headingOne" >-->
-         <!-- <button class="mb-0"> Sign Up</button>-->
-            <!--</div>-->
-         <!-- </div>-->
-         <!--</a>-->
-        <!--<div id="collapseOne" class="collapse in" role="tabpanel" aria-labelledby="headingOne">-->
-       
             
-
-
-
 <div class="card-block">
         <div class="card">
+          
             <div class="card-body">
             <h5 class="card-title">Sign Up</h5>
             <!-- <p class="card-text">With supporting text be as </p> -->
             <form class="sign-up">
              <h5> First name:</h5>
-              <input type="text" class="form-control" id="firstName" name="firstname" placeholder="Mickey">
+              <input type="text" class="form-control" required id="firstName" name="firstname" placeholder="Mickey">
               <h5>Last name:</h5>
-              <input type="text" class="form-control" name="lastname" id="lastName" placeholder="Mouse">
+              <input type="text" class="form-control" required name="lastname" id="lastName" placeholder="Mouse">
               <h5>Email:</h5>
-              <input type="email" class="form-control" name="email" id="email" placeholder="example@gmail.com">
+              <input type="email" class="form-control" required name="email" id="email" placeholder="example@gmail.com">
               <h5>Phone (optional):</h5>
-              <input type="tel" class="form-control" id="phone" name="phone" placeholder="763-595-3406">
+              <input type="tel" class="form-control" required id="phone" name="phone" placeholder="7635953406">
               <h5>Username:</h5>
-              <input type="text" class="form-control"id="username1" name="username" placeholder="username">
+              <input type="text" class="form-control"id="username1" required name="username" placeholder="username">
               <h5>Password:</h5>
-              <input type="password"class="form-control" id="password1" name="username" placeholder="password">
-              <button type="submit" class="btn btn-default" id="submit">Submit</button>
+              <input type="password"class="form-control" id="password1" required name="username" placeholder="password">
+              <button type="submit" class="btn btn-secondary" id="submit2">Submit</button>
             </form>
-            </div> 
-            </div>
-            </div>
-            </div>
-            
-            
-        </div>
+              </div> 
+            </div>   
+          </div>
+      </div> 
     </div>
-    
-    </div>
-    <div class="col-sm-2">
-        <div class="card">
-            <div class="card-body">
-                <div class="card" >
-                     <div class="card-body">
-                          <h5 class="card-title">Card title</h5>
-                        </div>
-                      </div>
-                      <div class="card">
-                            <div class="card-body">
-                              <h5 class="card-title">Card title</h5>
-                            </div>
-                          </div>
-                        </div>
-                    </div>
-                  </div>
-                </div>
-             </div>
+  </div>
+</div>
 
              <div class="modal" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
