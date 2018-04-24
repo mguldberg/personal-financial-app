@@ -1,8 +1,39 @@
+
+<style>
+   
+    * {
+        position: relative;
+        box-sizing: border-box;
+    }
+
+   
+
+    h1 {
+         color: aliceblue;
+        text-shadow: 2px 2px 2px yellow;
+        
+    }
+
+    h1,
+    h3,
+    .card-body {
+        color: rgb(72, 198, 240);
+    }
+
+    input:hover {
+        background: rgb(177, 221, 233);
+    }
+
+    button {
+        border-color: rgb(64, 136, 136)!important;
+        background-color: rgb(214, 238, 240);
+    }
+=======
 <style>            
  
 body {
     line-height: 30px;
-    background-image: url(../images/background.jpg);
+   
     background-size: cover;
     background-position: center;
     background-color: rgb(219, 241, 247);
@@ -18,30 +49,14 @@ body {
 .sign-up-button1{
   float:right;
 }
-* {
-    position: relative;
-    box-sizing: border-box;
-}
-* {
+
+body {
     font-family: 'Ariel', sans-serif !important;
 }
 #submit2{
   margin-top:20px;
 }
-
-input:hover {
-    background: rgb(177, 221, 233);   
-}
-
-.jumbotron {
-    width: 100%;
-    background-color: rgb(219, 241, 247);  
-   
-    
-    top:15px;
-}
 .card {
-   
     border-color: black;
     margin-bottom:20px;
 }
@@ -50,19 +65,52 @@ input:hover {
     border-width: 2px;
     background-color: #ffffff;
     border-radius: 6px;
-   
 }
 
+
+    #jumbotron2 {
+        background-image: url("https://www.reconart.com/wp-content/themes/reconart/img/Financial_Close.jpg");
+        width: 100%;
+        background-repeat: no-repeat;
+        background-size: 100% 130%;
+        color: #fff;
+        text-shadow: 2px 2px 4px #000000;
+        border: 1px solid paleturquoise !important;
+        top: 15px;
+    }
+ #jumbotron1 {
+        background-image: url("http://onecentatatime.com/wp-content/uploads/2013/05/Personal-Finance.jpg");
+        width: 100%;
+        background-repeat: no-repeat;
+        background-size: 100% 200%;
+        color: #fff;
+        text-shadow: 2px 2px 4px #000000;
+        border: 1px solid paleturquoise !important;
+        top: 15px;
+    }
 </style>
-         <div class="container">
-                <div class="jumbotron text-center" style="background-color: none; color: none">
-                    <h1>Financial Expenses</h1>
-                </div> <!-- Jumbotron End -->  
-                
-<div class="row">
-    
-<div class="col-sm-12">
-  <div class="card">
+
+<div class="container">
+    <div id = "jumbotron1" class="jumbotron text-center" style="background-color: none; color: none">
+
+         <h1></h1>  
+    </div>
+    <!-- Jumbotron End -->
+
+    <div class="row">
+        <div class="col-sm-3">
+            <div class="card" style="width: 16rem;">
+                <img class="card-img-top" src="http://travelplanningtipsandtricks.com/wp-content/uploads/2014/02/ID-10097478.jpg" height = "150px" alt="Card image cap">
+                <div class="card-body">
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                </div>
+            </div>
+            <!--col-sm-3 End-->
+        </div>
+
+        <div class="col-sm-6">
+            <div class="card align-items-center">
+              
         <div class="card-body">
          <h5 class="card-title">Sign In</h5>
          
@@ -77,12 +125,26 @@ input:hover {
             </form>
            
        </div>     
-      </div>
-            <div id="demo" class="collapse">
-  
-            
-<div class="card-block">
-        <div class="card">
+
+
+                    <div id="demo" class="collapse">
+
+                        <!--<div id="accordion" role="tablist" aria-multiselectable="true">
+            <br>
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          <div class="card-header" role="tab" id="headingOne" >-->
+                        <!-- <button class="mb-0"> Sign Up</button>-->
+                        <!--</div>-->
+                        <!-- </div>-->
+                        <!--</a>-->
+                        <!--<div id="collapseOne" class="collapse in" role="tabpanel" aria-labelledby="headingOne">-->
+
+
+
+
+
+                        <div class="card-block">
+                            <div class="card">
           
             <div class="card-body">
             <h5 class="card-title">Sign Up</h5>
@@ -104,11 +166,48 @@ input:hover {
             </form>
               </div> 
             </div>   
-          </div>
-      </div> 
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+
+        </div>
+        <div class="col-sm-3">
+            {{!--
+            <div class="card">
+
+                <div class="card-title">
+                    <img src="http://travelplanningtipsandtricks.com/wp-content/uploads/2014/02/ID-10097478.jpg">
+
+                </div>
+
+
+            </div> --}}
+            <div class="card" style="width: 16rem;">
+                <img class="card-img-top" src="https://www.tradingandinvestmentnews.co.uk/wp-content/uploads/2016/03/investment.jpg" height="150px" alt="Card image cap">
+                <div class="card-body">
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
+
+
+    <div id ="jumbotron2" class="jumbotron text-center" style="background-color: none; color: none">
+
+        <h1>Financial Expenses</h1>
+    </div>
+
 </div>
+
+
+
+
+  
+  
+
 
              <div class="modal" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
@@ -129,6 +228,7 @@ input:hover {
   </div>
 </div>
 
+
 <!--<script>
 //$(window).scroll(function () {
    // winHeight = $(window).height();
@@ -137,5 +237,5 @@ input:hover {
       //$('.jumbotron').css('top', '0');
    //}
     //}); 
-<!</script> -->   
+<!</script> -->
 <script src="js/main.js"></script>
