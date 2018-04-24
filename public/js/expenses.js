@@ -23,7 +23,11 @@ $("#demo").on('click', '.delete', function() {
         }
     )
 })
-
+$("#log-out").on("click",function(event){
+    event.preventDefault();
+    localStorage.clear();
+    window.location = "/"
+})
 //When submit button is pressed...
 $(".expenses").on("submit", function (event) {
     // Make sure to preventDefault on a submit event.
