@@ -13,16 +13,15 @@ document.getElementById('date').valueAsDate = new Date();
 $("#demo").on('click', '.delete', function() {
     var thisId=$(this).parent().attr("id");
     console.log(thisId)
-    //GET API ROUTE AND UNCOMMENT THIS
-    // $.ajax("/api/something/" + localVarStored, {
-    //     type: "DELETE",
-    //     data: thisId
-    // }).then(
-    //     function (data) {
-    //         console.log(data)
-    //        location.reload();
-    //     }
-    // )
+    $.ajax("/api/investment/" + localVarStored, {
+        type: "DELETE",
+        data: thisId
+    }).then(
+        function (data) {
+            console.log(data)
+           location.reload();
+        }
+    )
 })
 $(".display-button").click(function() {
     $('#demo').scrollIntoView()
