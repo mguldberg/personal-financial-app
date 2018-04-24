@@ -170,6 +170,10 @@ router.post("/api/investment/:id", function (req, expressRes) {
             var regexString = req.body.investmentName.replace(/\*/g, "");
             console.log(regexString);
 
+            //strip out spaces from string in current index
+            var regexString = req.body.investmentName.replace(/\s/g, "");
+            console.log(regexString);
+
             //construct a regex string to look for in the coinList
             var regexVar = new RegExp(regexString, "gi");
 
@@ -193,6 +197,16 @@ router.post("/api/investment/:id", function (req, expressRes) {
                     //"https://www.cryptocompare.com" + coinListObj.Data[i].ImageUrl
                     req.body.investmentImgUrl = coinListObj.Data[i].ImageUrl;
                     console.log(req.body.investmentImgUrl);
+
+                    //override search for BTC to not return Bitcoin Dark or other imitation coins
+                    //construct 2 regex string2 to look for BTC/bITcOIn in the coinList
+                    var regexVar = new RegExp('btc', 'gi');
+                    var regexVar2 = new RegExp('bitcoin', 'gi')
+
+                    if (regexVar.test(coinListObj.Data[i].FullName) || regexVar2.test(coin.Data[i].FullName)) {
+                        req.body.investmentName = 'BTC';
+                        req.body.investmentImgUrl = '/media/19633/btc.png';
+                    }
 
                     //stop looping we found a match
                     break;
@@ -222,6 +236,7 @@ router.post("/api/investment/:id", function (req, expressRes) {
                     console.log("cc.priceFull");
                     console.log(prices);
                     console.log(prices[req.body.investmentName].USD.PRICE);
+                    console.log(req.body.amount);
                     req.body.currentValue = parseFloat(prices[req.body.investmentName].USD.PRICE) * req.body.amount;
                     console.log("current value of ", req.body.investmentName, " is ", req.body.currentValue);
 
@@ -330,8 +345,8 @@ router.post("/api/investment/:id", function (req, expressRes) {
 
                         console.log("current stock price", currentQuotes.price.regularMarketPrice);
 
-                        //set current stock price
-                        req.body.currentValue = currentQuotes.price.regularMarketPrice;
+                        //set current stock value  = current price * amount (aka number of shares)
+                        req.body.currentValue = currentQuotes.price.regularMarketPrice * req.body.amount;
 
                         //checking to see if the optional parameter for Cost Basis was sent
                         if (req.body.costBasis == 0) {
