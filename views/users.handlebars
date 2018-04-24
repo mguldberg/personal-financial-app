@@ -1,23 +1,21 @@
-
 <style>
-   
     * {
         position: relative;
         box-sizing: border-box;
     }
 
-   
+
 
     h1 {
-         color: aliceblue;
+        color: aliceblue;
         text-shadow: 2px 2px 2px yellow;
-        
+
     }
 
     h1,
     h3,
     .card-body {
-        color: rgb(72, 198, 240);
+        color:black;
     }
 
     input:hover {
@@ -30,42 +28,45 @@
     }
 
 
- 
-body {
-    line-height: 30px;
-   
-    background-size: cover;
-    background-position: center;
-    background-color: rgb(219, 241, 247);
-    width: 100%;
-    padding: 0px;
-    margin: auto 0;
-    overflow: auto;
-  
-}
-#password2{
-  margin-bottom:20px;
-}
-.sign-up-button1{
-  float:right;
-}
 
-body {
-    font-family: 'Ariel', sans-serif !important;
-}
-#submit2{
-  margin-top:20px;
-}
-.card {
-    border-color: black;
-    margin-bottom:20px;
-}
-.form-control{
-  border-style: solid;
-    border-width: 2px;
-    background-color: #ffffff;
-    border-radius: 6px;
-}
+    body {
+        line-height: 30px;
+        background-image: url("images/pw_maze_white.png");
+        width: 100%;
+        padding: 0px;
+        margin: auto 0;
+        overflow: auto;
+
+    }
+
+    #password2 {
+        margin-bottom: 20px;
+    }
+
+    .sign-up-button1 {
+        float: right;
+    }
+
+    body {
+        font-family: 'Ariel', sans-serif !important;
+
+    }
+
+    #submit2 {
+        margin-top: 20px;
+    }
+
+    .card {
+        border-color: black;
+        margin-bottom: 20px;
+    }
+
+    .form-control {
+        border-style: solid;
+        border-width: 2px;
+        background-color: #ffffff;
+        border-radius: 6px;
+    }
 
 
     #jumbotron2 {
@@ -75,36 +76,41 @@ body {
         background-size: 100% 130%;
         color: #fff;
         text-shadow: 2px 2px 4px #000000;
-        border: 1px solid paleturquoise ;
+        border: 1px solid paleturquoise;
         top: 15px;
-         border-color: black;
+        border-color: black;
     }
- #jumbotron1 {
+
+    #jumbotron1 {
         background-image: url("http://onecentatatime.com/wp-content/uploads/2013/05/Personal-Finance.jpg");
         width: 100%;
         background-repeat: no-repeat;
         background-size: 100% 200%;
         color: #fff;
         text-shadow: 2px 2px 4px #000000;
-        border: 1px solid ;
+        border: 1px solid;
         top: 15px;
-         border-color: black;
+        border-color: black;
+    }
+    .side-card{
+        font-size: 20px;
     }
 </style>
 
 <div class="container">
-    <div id = "jumbotron1" class="jumbotron text-center" style="background-color: none; color: none">
+    <div id="jumbotron1" class="jumbotron text-center" style="background-color: none; color: none">
 
-         <h1></h1>  
+        <h1></h1>
     </div>
     <!-- Jumbotron End -->
 
     <div class="row">
         <div class="col-sm-3">
-            <div class="card" style="width: 16rem;">
-                <img class="card-img-top" src="http://travelplanningtipsandtricks.com/wp-content/uploads/2014/02/ID-10097478.jpg" height = "150px" alt="Card image cap">
+            <div class="card side-card" style="width: 16rem;">
+                <img class="card-img-top" src="http://travelplanningtipsandtricks.com/wp-content/uploads/2014/02/ID-10097478.jpg" height="150px"
+                    alt="Card image cap">
                 <div class="card-body">
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <p class="card-text">Manage your Personal Expenses in an easier way. </p>
                 </div>
             </div>
             <!--col-sm-3 End-->
@@ -112,85 +118,73 @@ body {
 
         <div class="col-sm-6">
             <div class="card align-items-center">
-              
-        <div class="card-body">
-         <h5 class="card-title">Sign In</h5>
-         
-          <form class="sign-in">
-            <h5>Username:</h5>
-            <input type="text"  class="form-control" id="username2" name="username" placeholder="username">
- 
-            <h5>Password:</h5>
-            <input type="password"  class="form-control" id="password2" name="username" placeholder="password">
-            <button type="submit" class="btn btn-secondary first-submit" id="submit">Submit</button>
-            <button data-toggle="collapse" class="btn btn-secondary sign-up-button1" id="display-signup"data-target="#demo">Sign up</button>
-            </form>
-           
-       </div>     
- </div>
 
-                    <div id="demo" class="collapse">
+                <div class="card-body">
+                    <h5 class="card-title">Sign In</h5>
 
-                        <!--<div id="accordion" role="tablist" aria-multiselectable="true">
-            <br>
-            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-          <div class="card-header" role="tab" id="headingOne" >-->
-                        <!-- <button class="mb-0"> Sign Up</button>-->
-                        <!--</div>-->
-                        <!-- </div>-->
-                        <!--</a>-->
-                        <!--<div id="collapseOne" class="collapse in" role="tabpanel" aria-labelledby="headingOne">-->
+                    <form class="sign-in">
+                        <h5>Username:</h5>
+                        <input type="text" class="form-control" id="username2" name="username" placeholder="username">
 
+                        <h5>Password:</h5>
+                        <input type="password" class="form-control" id="password2" name="username" placeholder="password">
+                        <button type="submit" class="btn btn-secondary first-submit" id="submit">Submit</button>
+                        <button data-toggle="collapse" class="btn btn-secondary sign-up-button1" id="display-signup" data-target="#demo">Sign up</button>
+                    </form>
 
-
-
-
-                        <div class="card-block">
-                            <div class="card">
-          
-            <div class="card-body">
-            <h5 class="card-title">Sign Up</h5>
-            <!-- <p class="card-text">With supporting text be as </p> -->
-            <form class="sign-up">
-             <h5> First name:</h5>
-              <input type="text" class="form-control" required id="firstName" name="firstname" placeholder="Mickey">
-              <h5>Last name:</h5>
-              <input type="text" class="form-control" required name="lastname" id="lastName" placeholder="Mouse">
-              <h5>Email:</h5>
-              <input type="email" class="form-control" required name="email" id="email" placeholder="example@gmail.com">
-              <h5>Phone (optional):</h5>
-              <input type="tel" class="form-control" required id="phone" name="phone" placeholder="7635953406">
-              <h5>Username:</h5>
-              <input type="text" class="form-control"id="username1" required name="username" placeholder="username">
-              <h5>Password:</h5>
-              <input type="password"class="form-control" id="password1" required name="username" placeholder="password">
-              <button type="submit" class="btn btn-secondary" id="submit2">Submit</button>
-            </form>
-              </div> 
-            </div>   
-                        </div>
-                    </div>
-
-
-               
+                </div>
             </div>
 
-        
+            <div id="demo" class="collapse">
+
+                <div class="card-block">
+                    <div class="card">
+
+                        <div class="card-body">
+                            <h5 class="card-title">Sign Up</h5>
+                            <!-- <p class="card-text">With supporting text be as </p> -->
+                            <form class="sign-up">
+                                <h5> First name:</h5>
+                                <input type="text" class="form-control" required id="firstName" name="firstname" placeholder="Mickey">
+                                <h5>Last name:</h5>
+                                <input type="text" class="form-control" required name="lastname" id="lastName" placeholder="Mouse">
+                                <h5>Email:</h5>
+                                <input type="email" class="form-control" required name="email" id="email" placeholder="example@gmail.com">
+                                <h5>Phone (optional):</h5>
+                                <input type="tel" class="form-control" required id="phone" name="phone" placeholder="7635953406">
+                                <h5>Username:</h5>
+                                <input type="text" class="form-control" id="username1" required name="username" placeholder="username">
+                                <h5>Password:</h5>
+                                <input type="password" class="form-control" id="password1" required name="username" placeholder="password">
+                                <button type="submit" class="btn btn-secondary" id="submit2">Submit</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+
+
         <div class="col-sm-3">
-           
-            <div class="card" style="width: 16rem;">
-                <img class="card-img-top" src="https://www.tradingandinvestmentnews.co.uk/wp-content/uploads/2016/03/investment.jpg" height="150px" alt="Card image cap">
+
+            <div class="card side-card" style="width: 16rem;">
+                <img class="card-img-top" src="https://www.tradingandinvestmentnews.co.uk/wp-content/uploads/2016/03/investment.jpg" height="150px"
+                    alt="Card image cap">
                 <div class="card-body">
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <p class="card-text">Manage your investments like Stocks and Crypto currencies.</p>
                 </div>
             </div>
         </div>
     </div>
 
 
-    <div id ="jumbotron2" class="jumbotron text-center" style="background-color: none; color: none">
+    <div id="jumbotron2" class="jumbotron text-center" style="background-color: none; color: none">
 
-        <h1>Financial Expenses</h1>
+        <h1>
+            <br> </h1>
     </div>
 
 </div>
@@ -198,27 +192,25 @@ body {
 </div>
 </div>
 
-  
-  
 
 
-             <div class="modal" tabindex="-1" role="dialog">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title"></h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div id="error-text"></div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-      </div>
+<div class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="error-text"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
 
 
