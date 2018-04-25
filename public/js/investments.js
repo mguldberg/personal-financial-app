@@ -61,6 +61,7 @@ $(".investments").on("submit", function (event) {
         }
         )
         .fail(function (err) {
+            console.log(err);
             console.log("getting an error from the database", err.status, err.statusText);
             console.log(err.status);
             console.log(err.responseJSON.errors["0"]);
@@ -111,9 +112,9 @@ $.ajax("/api/investment/" + localVarStored, {
                     //apend item, amount, datepaid, and a button
                     //"https://www.cryptocompare.com" + coinListObj.Data[i].ImageUrl
                     if(getData.Investments[i].type=="Crypto Currency"&&getData.Investments[i].id!="null"){
-                    $("#" + getData.Investments[i].id).append("<img src='https://www.cryptocompare.com"+getData.Investments[i].investmentImgUrl+"'alt:'Icon' class='image-created'>")
-                    $(".image-created").css("width", "100px");
-                    $(".image-created").css("margin-left", "90%");
+                    $("#" + getData.Investments[i].id).append("<img src='https://www.cryptocompare.com"+getData.Investments[i].investmentImgUrl+"'alt:'Icon' class='image-created img-fluid'>")
+                    $(".image-created").css("width", "20%");
+                    $(".image-created").css("margin-left", "80%");
                     }
                     $("#" + getData.Investments[i].id).append("<p><b>Investment: </b>" + getData.Investments[i].investmentName + "</p>")
                     $("#" + getData.Investments[i].id).append("<p><b>Type: </b>" + getData.Investments[i].type + "</p>")
