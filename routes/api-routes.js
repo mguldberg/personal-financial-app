@@ -47,14 +47,14 @@ router.post("/api/users/", function (req, res) {
         email: req.body.email,
         cellPhone: req.body.phone,
     }).then(function (dbUserResp) {
-       
+
         // We have access to the new todo as an argument inside of the callback function
         res.json(JSON.stringify(dbUserResp));
 
         //functions from external .js file that send emails and texts
-        email(dbUserResp.email,'Welcome to the financial planner! '+'Your username is '+dbUserResp.userName+" and your password is "+dbUserResp.password)
-        texts(dbUserResp.cellPhone,'Welcome to the financial planner! '+'Your username is '+dbUserResp.userName+" and your password is "+dbUserResp.password)
-        
+        email(dbUserResp.email, 'Welcome to the financial planner! ' + 'Your username is ' + dbUserResp.userName + " and your password is " + dbUserResp.password)
+        texts(dbUserResp.cellPhone, 'Welcome to the financial planner! ' + 'Your username is ' + dbUserResp.userName + " and your password is " + dbUserResp.password)
+
     })
         .catch(function (err) {
             console.log("we got an error", err);
@@ -168,11 +168,14 @@ router.delete("/api/expenses/:id", function (req, res) {
 // DELETE route for deleting expenses.
 router.delete("/api/investment/:id", function (req, res) {
     // specify which Expense we want to destroy with "where"
-    db.Invest.destroy({
+    console.log("in investment route handler", req.body.deleteId);
+
+    db.Investment.destroy({
         where: {
-            id: req.params.id
+            id: req.body.deleteId
         }
     }).then(function (dbInvestResp) {
+        console.log("in investment delete .then");
         res.json(dbInvestResp);
     });
 
@@ -229,7 +232,7 @@ router.post("/api/investment/:id", function (req, expressRes) {
                     var regexVar = new RegExp('btc', 'gi');
                     var regexVar2 = new RegExp('bitcoin', 'gi')
 
-                    if (regexVar.test(coinListObj.Data[i].FullName) || regexVar2.test(coin.Data[i].FullName)) {
+                    if (regexVar.test(coinListObj.Data[i].FullName) || regexVar2.test(coinListObj.Data[i].FullName)) {
                         req.body.investmentName = 'BTC';
                         req.body.investmentImgUrl = '/media/19633/btc.png';
                     }
@@ -251,7 +254,7 @@ router.post("/api/investment/:id", function (req, expressRes) {
             //API call requires an array of currencies
             var currencyArray = [req.body.investmentName];
 
-            
+
 
             console.log("date purchased ", req.body.datePurchased)
 
@@ -314,6 +317,7 @@ router.post("/api/investment/:id", function (req, expressRes) {
                 { json: true },
                 function (err, stockResponse, queryStockNameResp) {
                     if (!err && stockResponse.statusCode === 200) {
+                        console.log(queryStockNameResp.ResultSet.Result[0])
                         console.log(queryStockNameResp.ResultSet.Result[0].name);
 
                         //strip out * from string in current index - will cause a crash if not handled
@@ -330,6 +334,14 @@ router.post("/api/investment/:id", function (req, expressRes) {
 
                             //use the RegExp .test function - returns true if a match is found
                             stockMatchBool = regexVar.test(queryStockNameResp.ResultSet.Result[0].name)
+
+                            //if bool = false also check symbol field for a match
+                            if (stockMatchBool == false) {
+                                //use the RegExp .test function - returns true if a match is found
+                                stockMatchBool = regexVar.test(queryStockNameResp.ResultSet.Result[0].symbol)
+
+                            }
+                            console.log(queryStockNameResp.ResultSet.Result[0].name);
 
                             //if a match was found
                             //  - reset req.body.investmentName to proper symbol
@@ -358,8 +370,6 @@ router.post("/api/investment/:id", function (req, expressRes) {
                         expressRes.status(500).send({ msg: "Invalid CryptoCoin entered.  Please try again." });
                     }
                     console.log(req.body.investmentName);
-
-                   
 
                     // Now that we have the stock ticker symbol call current quoteAPI
                     yahooFinance.quote({
@@ -409,8 +419,8 @@ router.post("/api/investment/:id", function (req, expressRes) {
                                     // We have access to the new todo as an argument inside of the callback function
                                     expressRes.json(dbInvestmentResp);
                                     // if(dbInvestmentResp.Investments[dbInvestmentResp.Investments.length].currentValue>10){
-                                        console.log("BIG SPENDER BIG SPENDER BIG SPENDER")
-                                    email(dbInvestmentResp.email,dbInvestmentResp.Investments[dbInvestmentResp.Investments.length-1].currentValue+" You're a big spender, ain't ya?")
+                                    console.log("BIG SPENDER BIG SPENDER BIG SPENDER")
+                                    email(dbInvestmentResp.email, dbInvestmentResp.Investments[dbInvestmentResp.Investments.length - 1].currentValue + " You're a big spender, ain't ya?")
                                     // }
                                 })
                                     .catch(function (dbInvestmentResp) {
@@ -464,18 +474,115 @@ router.post("/api/investment/:id", function (req, expressRes) {
     };
 
 });
-
-//api route for getting all of the investments
+//api route for getting all of the investments and updating currentValue on each call
 router.get("/api/investment/:id", function (req, res) {
+    console.log("inside of PUT finding investements for a particular user");
     db.User.findOne({
         where: {
             id: req.params.id
         },
         include: [db.Investment]
     }).then(function (dbInvestments) {
+        res.json(dbInvestments)
+    })
+})
+
+//api route for getting all of the investments and updating currentValue on each call
+router.put("/api/investment/:id", function (req, res) {
+    console.log("inside of PUT finding investements for a particular user");
+    db.User.findOne({
+        where: {
+            id: req.params.id
+        },
+        include: [db.Investment]
+    }).then(function (dbInvestments) {
+        console.log("inside of callback on finding investements for a particular user");
+
+        // console.log(dbInvestments.Investments);
+        console.log(dbInvestments.Investments.length);
+        //loop through Invesment object to update the current price for each investment
+        for (var i = 0; i < dbInvestments.Investments.length; i++) {
+
+            console.log("value of i", i);
+            //switch on type of Investment
+            switch (dbInvestments.Investments[i].type) {
+                //is this investment a Crypto Currency
+                case 'Crypto Currency':
+
+                    cryptoPriceCheck(dbInvestments.Investments[i].investmentName, i, dbInvestments.Investments, res);
+
+                    break;
+
+                case 'Stock':
+                    // Use stock ticker symbol call current quote API
+
+                    cryptoPriceCheck(dbInvestments.Investments[i].investmentName, i, dbInvestments.Investments, res);
+
+                    break;
+            }
+        };
         res.json(dbInvestments);
     });
-});
+})
+
+function cryptoPriceCheck(investmentName, index, currentDbData, expressResp) {
+    // Use Crypto ticker symbol call current quote API
+    cc.priceFull([investmentName], ['USD'])
+        .then(prices => {
+            // console.log(currentDbData);
+            console.log("inside of for loop in callback", index, currentDbData.length);
+            // -> { BTC: { USD: 1114.63 } }
+            console.log("cc.priceFull Update");
+            console.log(currentDbData[index].investmentName);
+            console.log(prices[currentDbData[index].investmentName].USD.PRICE);
+            console.log("crypto amount:", currentDbData[index].amount);
+
+
+            //set newCurrentValue for putting into the DB and populating the Front End pie chart
+            var newCurrentValue = parseFloat(prices[currentDbData[index].investmentName].USD.PRICE) * currentDbData[index].amount;
+
+            // update object that will be passed back with the new data
+            currentDbData[index].currentValue = newCurrentValue;
+
+            //update value in the DB
+            updateInvestments(currentDbData[index].id, newCurrentValue, expressResp);
+
+        });
+}
+function stockPriceCheck(investmentName, index, currentDbData, expressResp) {
+
+    yahooFinance.quote({
+        symbol: investmentName,
+        modules: ['price', 'summaryDetail'] // see the docs for the full list
+    }, function (err, currentQuotes) {
+        // console.log(currentDbData);
+        console.log("inside of for loop in callback", index, currentDbData.length);
+        console.log("yahooFinance Update");
+        console.log(currentQuotes);
+
+        console.log("stock amount:", currentDbData[index].amount);
+        //set newCurrentValue for putting into the DB and populating the Front End pie chart
+        var newCurrentValue = currentQuotes.price.regularMarketPrice * currentDbData[index].amount;
+
+        // update object that will be passed back with the new data
+        currentDbData[index].currentValue = newCurrentValue;
+
+        //update value in the DB
+        updateInvestments(currentDbData[index].id, newCurrentValue, expressResp);
+      
+    })
+}
+function updateInvestments(investmentId, newCurrentValue, expressResponse) {
+    db.Investment.update({
+        currentValue: newCurrentValue
+    }, {
+            where: {
+                id: investmentId
+            }
+        }).then(function (dbInvestmentUpdate) {
+            expressResponse.json(dbInvestmentUpdate);
+        });
+};
 
 function addInvestment(params, body, imgUrl, res) {
 
