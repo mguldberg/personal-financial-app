@@ -7,6 +7,7 @@ $("#first-name").append("Hello " + localFirstName + "!")
 
 console.log(localVarStored)
 //Set default date to today
+
 document.getElementById('date').valueAsDate = new Date();
 
 //Log out when link is clicked...
@@ -108,10 +109,18 @@ $.ajax("/api/investment/" + localVarStored, {
                     //Create div
                     $(".table-div").append("<div class='card' id='" + getData.Investments[i].id + "'></div>")
                     //apend item, amount, datepaid, and a button
+                    //"https://www.cryptocompare.com" + coinListObj.Data[i].ImageUrl
+                    if(getData.Investments[i].type=="Crypto Currency"&&getData.Investments[i].id!="null"){
+                    $("#" + getData.Investments[i].id).append("<img src='https://www.cryptocompare.com"+getData.Investments[i].investmentImgUrl+"'alt:'Icon' class='image-created'>")
+                    $(".image-created").css("width", "100px");
+                    $(".image-created").css("margin-left", "90%");
+                    }
                     $("#" + getData.Investments[i].id).append("<p><b>Investment: </b>" + getData.Investments[i].investmentName + "</p>")
                     $("#" + getData.Investments[i].id).append("<p><b>Type: </b>" + getData.Investments[i].type + "</p>")
-                    $("#" + getData.Investments[i].id).append("<p><b>Dollar Value: </b>$" + getData.Investments[i].currentValue + "</p>")
-                    $("#" + getData.Investments[i].id).append("<p><b>Stocks or Crypto Units: </b>" + getData.Investments[i].amount + "</p>")
+                    $("#" + getData.Investments[i].id).append("<p><b>Cost Basis in Dollars: </b>$" +        parseFloat(getData.Investments[i].costBasis).toFixed(2) + "</p>")
+                    $("#" + getData.Investments[i].id).append("<p><b>Dollar Value of Stock: </b>$" +        parseFloat(getData.Investments[i].currentValue/getData.Investments[i].amount).toFixed(2) + "</p>")
+                    $("#" + getData.Investments[i].id).append("<p><b>Stocks or Crypto Units: </b>" + parseFloat(getData.Investments[i].amount).toFixed(1) + "</p>")
+                    $("#" + getData.Investments[i].id).append("<p><b>Total Dollar Value: </b>$" + parseFloat(getData.Investments[i].currentValue).toFixed(2) + "</p>")
                     $("#" + getData.Investments[i].id).append("<p><b>Date Purchased: </b>" + getData.Investments[i].datePurchased + "</p>")
                     $("#" + getData.Investments[i].id).append("<button class='btn btn-secondary delete'>Delete</button>")
                 }

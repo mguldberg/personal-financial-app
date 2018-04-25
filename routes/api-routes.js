@@ -158,7 +158,7 @@ router.delete("/api/expenses/:id", function (req, res) {
     // specify which Expense we want to destroy with "where"
     db.Expense.destroy({
         where: {
-            id: req.params.id
+            id: req.body.deleteId
         }
     }).then(function (dbExpenseResp) {
         res.json(dbExpenseResp);

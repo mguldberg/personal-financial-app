@@ -12,10 +12,12 @@ document.getElementById('date').valueAsDate = new Date();
 $("#demo").on('click', '.delete', function() {
     var thisId=$(this).parent().attr("id");
     console.log(thisId)
-   
+   var deleteData={
+       deleteId:thisId
+   }
     $.ajax("/api/expenses/" + localVarStored, {
         type: "DELETE",
-        data: thisId
+        data: deleteData
     }).then(
         function (data) {
             console.log(data)
