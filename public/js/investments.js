@@ -64,9 +64,8 @@ $(".investments").on("submit", function (event) {
             console.log(err);
             console.log("getting an error from the database", err.status, err.statusText);
             console.log(err.status);
-            console.log(err.responseJSON.errors["0"]);
-            $(".modal-title").text("HTTP Error : " + err.status + " " + err.statusText);
-            $("#error-text").text(err.responseJSON.errors["0"].message);
+            $(".modal-title").text("Investment Query Error");
+            $("#error-text").text(err.responseJSON.msg);
             $(".modal").modal('toggle');
         });
 
