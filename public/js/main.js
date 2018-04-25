@@ -74,3 +74,9 @@ $("#submit").on("click", function (event) {
 
 
 });
+
+$("#display-signup").on("click", function (event) {
+
+    $("#sign-in-card").hide(700);
+
+})

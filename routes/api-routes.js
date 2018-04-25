@@ -367,7 +367,7 @@ router.post("/api/investment/:id", function (req, expressRes) {
                     //leave immediately from this route and return error code to front end
                     if (stockMatchBool == false) {
                         console.log("invalid req.body.investmentName in investments POST handler");
-                        expressRes.status(500).send({ msg: "Invalid CryptoCoin entered.  Please try again." });
+                        expressRes.status(500).send({ msg: "Invalid Stock entered.  Please try again." });
                     }
                     console.log(req.body.investmentName);
 
@@ -388,6 +388,11 @@ router.post("/api/investment/:id", function (req, expressRes) {
                         if (req.body.costBasis == 0) {
                             // call historic Stock price lookup api using Yahoo-finance API
 
+
+                            if (req.body.datePurchased == moment().format('YYYY-MM-DD')) {
+                                req.body.datePurchased = moment().subtract(1, 'days').toString();
+                            }
+
                             yahooFinance.historical({
                                 symbol: req.body.investmentName,
                                 from: req.body.datePurchased,
@@ -395,6 +400,10 @@ router.post("/api/investment/:id", function (req, expressRes) {
                                 // period: 'd'  // 'd' (daily)
                             }, function (err, quotes) {
                                 console.log("full quote response- historical", quotes[0]);
+                                if (quotes[0].adjClose == undefined) {
+                                    console.log("invalid req.body.investmentName in investments POST handler");
+                                    expressRes.status(404).send({ msg: "Invalid Stock entered.  Please try again." });
+                                }
                                 console.log(quotes[0].adjClose)
                                 console.log(req.body.amount);
                                 //set the costBasis = amount of the coin * price of the coin at the time of purchase
@@ -405,6 +414,9 @@ router.post("/api/investment/:id", function (req, expressRes) {
                                 //make function call to add investment to the DB
                                 // addInvestment(req.params, req.body, "#", res);
 
+                                // if (req.body.datePurchased == moment().format('YYYY-MM-DD').subtract(1, 'days').toString()) {
+                                //     req.body.datePurchased = moment().toString();
+                                // }
 
                                 // INSERT new row into the Investments table using the UserID key
                                 db.Investment.create({
@@ -569,7 +581,7 @@ function stockPriceCheck(investmentName, index, currentDbData, expressResp) {
 
         //update value in the DB
         updateInvestments(currentDbData[index].id, newCurrentValue, expressResp);
-      
+
     })
 }
 function updateInvestments(investmentId, newCurrentValue, expressResponse) {
