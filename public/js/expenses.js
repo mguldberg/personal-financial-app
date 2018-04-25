@@ -25,6 +25,7 @@ $("#demo").on('click', '.delete', function() {
         }
     )
 })
+//If a user tries to log out...
 $("#log-out").on("click",function(event){
     event.preventDefault();
     localStorage.clear();
@@ -42,6 +43,7 @@ $(".expenses").on("submit", function (event) {
     }
     console.log(expenseData)
 
+//Post new expense
     $.ajax("/api/expenses/" + localVarStored, {
         type: "POST",
         data: expenseData
@@ -325,7 +327,6 @@ $.ajax("/api/expenses/" + localVarStored, {
                     }
                 }
             },
-
             tooltip: {
                 headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
                 pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.amount}</b><br/> <b>{point.y:.2f}%</b> of total'
@@ -341,6 +342,34 @@ $.ajax("/api/expenses/" + localVarStored, {
             ],
             "drilldown": {
                 "series": drillData
+            },
+            responsive: {
+                rules: [{
+                    condition: {
+                        maxWidth: 500
+                    },
+                    chartOptions: {
+                        series: {
+                            dataLabels: {
+                                enabled: false,
+                                format: '{point.name}: {point.y:.1f}%'
+                            }
+                        }
+                    }
+                },
+            {
+                condition: {
+                    minWidth: 500
+                },
+                chartOptions: {
+                    series: {
+                        dataLabels: {
+                            enabled: true,
+                            format: '{point.name}: {point.y:.1f}%'
+                        }
+                    }
+                }
+            }]
             }
         });
     }

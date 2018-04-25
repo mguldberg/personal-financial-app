@@ -140,7 +140,7 @@ $.ajax("/api/investment/" + localVarStored, {
                     plotOptions: {
                         series: {
                             dataLabels: {
-                                enabled: true,
+                                enabled: false,
                                 format: '{point.name}: {point.y:.1f}%'
                             }
                         }
@@ -159,6 +159,34 @@ $.ajax("/api/investment/" + localVarStored, {
                                 chartData
                         }
                     ],
+                    responsive: {
+                        rules: [{
+                            condition: {
+                                maxWidth: 500
+                            },
+                            chartOptions: {
+                                series: {
+                                    dataLabels: {
+                                        enabled: false,
+                                        format: '{point.name}: {point.y:.1f}%'
+                                    }
+                                }
+                            }
+                        },
+                    {
+                        condition: {
+                            minWidth: 500
+                        },
+                        chartOptions: {
+                            series: {
+                                dataLabels: {
+                                    enabled: true,
+                                    format: '{point.name}: {point.y:.1f}%'
+                                }
+                            }
+                        }
+                    }]
+                    }
                 });
             }
             )
