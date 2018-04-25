@@ -246,7 +246,7 @@ router.post("/api/investment/:id", function (req, expressRes) {
             //leave immediately from this route and return error code to front end
             if (coinMatchBool == false) {
                 console.log("invalid req.body.investmentName in investments POST handler");
-                expressRes.status(500).send({ msg: "Invalid CryptoCoin entered.  Please try again." });
+                expressRes.status(404).send({ msg: "Invalid CryptoCoin entered.  Please try again." });
             }
 
             console.log(req.body.investmentName);
@@ -316,9 +316,17 @@ router.post("/api/investment/:id", function (req, expressRes) {
             request.get(queryStockNameUrl,
                 { json: true },
                 function (err, stockResponse, queryStockNameResp) {
+
+                    // console.log("Stock response", stockResponse);
+
                     if (!err && stockResponse.statusCode === 200) {
                         console.log(queryStockNameResp.ResultSet.Result[0])
-                        console.log(queryStockNameResp.ResultSet.Result[0].name);
+
+                        if (queryStockNameResp.ResultSet.Result[0] == []){
+                            console.log("invalid req.body.investmentName in investments POST handler");
+                            expressRes.status(404).send({ msg: "Invalid Stock entered.  Please try again." });
+                        }
+                        // console.log(queryStockNameResp.ResultSet.Result[0].name);
 
                         //strip out * from string in current index - will cause a crash if not handled
                         var regexString = req.body.investmentName.replace(/\*/g, "");
@@ -363,11 +371,12 @@ router.post("/api/investment/:id", function (req, expressRes) {
                         }
                     }
 
+                    console.log("stock match:",stockMatchBool);
                     //if we didn't find a match - inform the user of the problem
                     //leave immediately from this route and return error code to front end
                     if (stockMatchBool == false) {
                         console.log("invalid req.body.investmentName in investments POST handler");
-                        expressRes.status(500).send({ msg: "Invalid Stock entered.  Please try again." });
+                        expressRes.status(404).send({ msg: "Invalid Stock entered.  Please try again." });
                     }
                     console.log(req.body.investmentName);
 
@@ -385,13 +394,11 @@ router.post("/api/investment/:id", function (req, expressRes) {
                         req.body.currentValue = currentQuotes.price.regularMarketPrice * req.body.amount;
 
                         //checking to see if the optional parameter for Cost Basis was sent
-                        if (req.body.costBasis == 0) {
+                        if (req.body.datePurchased != moment().format('YYYY-MM-DD') && (req.body.costBasis == 0)) {
                             // call historic Stock price lookup api using Yahoo-finance API
 
-
-                            if (req.body.datePurchased == moment().format('YYYY-MM-DD')) {
-                                req.body.datePurchased = moment().subtract(1, 'days').toString();
-                            }
+                            //     req.body.datePurchased = moment().subtract(1, 'days').toString();
+                            // }
 
                             yahooFinance.historical({
                                 symbol: req.body.investmentName,
@@ -440,7 +447,7 @@ router.post("/api/investment/:id", function (req, expressRes) {
                                         // Whenever a validation or flag fails, an error is thrown
                                         // We can "catch" the error to prevent it from being "thrown", 
                                         // which could crash our node app
-                                        expressRes.status(500).send(dbInvestmentResp);
+                                        expressRes.status(404).send(dbInvestmentResp);
                                     });
 
                             });
