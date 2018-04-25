@@ -17,6 +17,10 @@
         color: black;
         background-color: rgb(219, 231, 247);
     }
+    .image-created{
+        max-width:100px;
+        max-height:100px;
+    }
 #amount,#crypto,#cost-basis,#investment-name{
   max-width:100%
 }
@@ -74,7 +78,7 @@
                             <br>
                              Number of Stocks or Crypto Units:
                             <br>
-                            <input type="text" name="amount" id="amount" required placeholder="10"><br>
+                            <input type="number" step="0.01" name="amount" id="amount" required placeholder="10"><br>
                              Cost-Basis (auto decides at 0):
                             <br>
                             <input type="text" name="cost-basis" id="cost-basis" value="0" placeholder="0">
