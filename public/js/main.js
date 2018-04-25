@@ -2,7 +2,7 @@ console.log("test")
 
 
 
-
+//If the sign-up submit button is clicked...
 $(".sign-up").on("submit", function (event) {
     // Make sure to preventDefault on a submit event.
     event.preventDefault();
@@ -34,6 +34,7 @@ $(".sign-up").on("submit", function (event) {
 
 
 });
+//If the sign-in button is clicked...
 $(".sign-in").on("submit",function(event){
 event.preventDefault();
 })
