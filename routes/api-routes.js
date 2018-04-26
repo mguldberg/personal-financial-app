@@ -535,7 +535,7 @@ router.put("/api/investment/:id", function (req, res) {
                 case 'Stock':
                     // Use stock ticker symbol call current quote API
 
-                    cryptoPriceCheck(dbInvestments.Investments[i].investmentName, i, dbInvestments.Investments, res);
+                    stockPriceCheck(dbInvestments.Investments[i].investmentName, i, dbInvestments.Investments, res);
 
                     break;
             }
