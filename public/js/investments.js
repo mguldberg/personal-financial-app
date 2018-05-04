@@ -87,12 +87,14 @@ $.ajax("/api/investment/" + localVarStored, {
                 var total = 0
                 console.log("test2")
                 console.log(parseFloat(getData.Investments[0].amount))
+                //getting total amount of $ in investments
                 for (var i = 0; i < getData.Investments.length; i++) {
                     total = total + parseFloat(getData.Investments[i].currentValue)
 
                 }
                 console.log("total: " + total)
                 var chartData = []
+                //creating a current object
                 for (var i = 0; i < getData.Investments.length; i++) {
                     var currentObj = {}
                     currentObj.name = getData.Investments[i].investmentName
@@ -119,7 +121,7 @@ $.ajax("/api/investment/" + localVarStored, {
                     $("#" + getData.Investments[i].id).append("<p><b>Type: </b>" + getData.Investments[i].type + "</p>")
                     $("#" + getData.Investments[i].id).append("<p><b>Cost Basis in Dollars: </b>$" +        parseFloat(getData.Investments[i].costBasis).toFixed(2) + "</p>")
                     $("#" + getData.Investments[i].id).append("<p><b>Dollar Value of Stock: </b>$" +        parseFloat(getData.Investments[i].currentValue/getData.Investments[i].amount).toFixed(2) + "</p>")
-                    $("#" + getData.Investments[i].id).append("<p><b>Stocks or Crypto Units: </b>" + parseFloat(getData.Investments[i].amount).toFixed(1) + "</p>")
+                    $("#" + getData.Investments[i].id).append("<p><b>Stocks or Crypto Units: </b>" + parseFloat(getData.Investments[i].amount).toFixed(5) + "</p>")
                     $("#" + getData.Investments[i].id).append("<p><b>Total Dollar Value: </b>$" + parseFloat(getData.Investments[i].currentValue).toFixed(2) + "</p>")
                     $("#" + getData.Investments[i].id).append("<p><b>Date Purchased: </b>" + getData.Investments[i].datePurchased + "</p>")
                     $("#" + getData.Investments[i].id).append("<button class='btn btn-secondary delete'>Delete</button>")

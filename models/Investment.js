@@ -10,7 +10,7 @@ module.exports = function (sequelize, DataTypes) {
             allowNull: false,
         },
         amount: {
-            type: DataTypes.DECIMAL(9, 5),
+            type: DataTypes.DECIMAL(15, 5),
             allowNull: false,
             // validate: {
             //     is: {
@@ -30,7 +30,7 @@ module.exports = function (sequelize, DataTypes) {
         },
         //cost Basis in $ - will be calcd in the post handler
         costBasis: {
-            type: DataTypes.DECIMAL(9, 5),
+            type: DataTypes.DECIMAL(15, 5),
             allowNull: false,
             // validate: {
             //     is: {
