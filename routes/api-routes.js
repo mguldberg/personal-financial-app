@@ -409,11 +409,12 @@ router.post("/api/investment/:id", function (req, expressRes) {
                               if (!quotes || quotes.length<1){
                                   console.log("QUOTES UNDEFINED")
                                 expressRes.status(404).send({ msg: "Error finding historical data.  Please try again." });   
-                                
+                                return;
                               }
                                else if (quotes[0].adjClose==undefined) {
                                     console.log("invalid req.body.investmentName in investments POST handler");
                                     expressRes.status(404).send({ msg: "Error finding historical data.  Please try again." });
+                                    return;
                                 }
                                 console.log(quotes)
                                 console.log(quotes[0].adjClose)
