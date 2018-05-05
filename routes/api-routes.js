@@ -408,9 +408,9 @@ router.post("/api/investment/:id", function (req, expressRes) {
                             console.log("SPACER")
 
                             yahooFinance.historical({
-                                symbol: req.body.investmentName,
-                                from: req.body.datePurchased,
-                                to: req.body.datePurchased,
+                                symbol: "FB",
+                                from: "2018-05-02",
+                                to: "2018-05-02",
                                 // period: 'd'  // 'd' (daily)
                             }, function (err, quotes) {
                               
