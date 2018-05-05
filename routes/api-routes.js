@@ -407,7 +407,7 @@ router.post("/api/investment/:id", function (req, expressRes) {
                                 // period: 'd'  // 'd' (daily)
                             }, function (err, quotes) {
                                 console.log("full quote response- historical", quotes[0]);
-                                if (quotes && quotes[0].adjClose == undefined) {
+                                if (!quotes && quotes[0].adjClose == undefined) {
                                     console.log("invalid req.body.investmentName in investments POST handler");
                                     expressRes.status(404).send({ msg: "Invalid Stock entered.  Please try again." });
                                 }
