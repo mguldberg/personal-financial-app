@@ -399,6 +399,10 @@ router.post("/api/investment/:id", function (req, expressRes) {
 
                             //     req.body.datePurchased = moment().subtract(1, 'days').toString();
                             // }
+                            console.log("HISTORICAL ERROR HANDLING! HISTORICAL ERROR HANDLING!")
+                            console.log(req.body.investmentName)
+                            console.log(req.body.datePurchased)
+                            console.log(req.body.datePurchased)
 
                             yahooFinance.historical({
                                 symbol: req.body.investmentName,
