@@ -401,8 +401,11 @@ router.post("/api/investment/:id", function (req, expressRes) {
                             // }
                             console.log("HISTORICAL ERROR HANDLING! HISTORICAL ERROR HANDLING!")
                             console.log(req.body.investmentName)
+                            console.log("SPACER")
                             console.log(req.body.datePurchased)
+                            console.log("SPACER")
                             console.log(req.body.datePurchased)
+                            console.log("SPACER")
 
                             yahooFinance.historical({
                                 symbol: req.body.investmentName,
@@ -410,7 +413,7 @@ router.post("/api/investment/:id", function (req, expressRes) {
                                 to: req.body.datePurchased,
                                 // period: 'd'  // 'd' (daily)
                             }, function (err, quotes) {
-                                if (err) console.log(err)
+                              
                                 console.log("ERROR: " +err)
                               if (!quotes || quotes.length<1){
                                   console.log("QUOTES UNDEFINED")
