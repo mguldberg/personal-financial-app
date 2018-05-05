@@ -394,7 +394,7 @@ router.post("/api/investment/:id", function (req, expressRes) {
                         req.body.currentValue = currentQuotes.price.regularMarketPrice * req.body.amount;
 
                         //checking to see if the optional parameter for Cost Basis was sent
-                        if (req.body.datePurchased != moment().format('YYYY-MM-DD') && (req.body.costBasis == 0)) {
+                        if (/*req.body.datePurchased != moment().format('YYYY-MM-DD') &&*/ (req.body.costBasis == 0)) {
                             // call historic Stock price lookup api using Yahoo-finance API
 
                             //     req.body.datePurchased = moment().subtract(1, 'days').toString();
