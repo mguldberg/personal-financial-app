@@ -411,6 +411,7 @@ router.post("/api/investment/:id", function (req, expressRes) {
                                 // period: 'd'  // 'd' (daily)
                             }, function (err, quotes) {
                                 if (err) console.log(err)
+                                console.log("ERROR: " +err)
                               if (!quotes || quotes.length<1){
                                   console.log("QUOTES UNDEFINED")
                                 expressRes.status(404).send({ msg: "Error finding historical data.  Please try again." });   
