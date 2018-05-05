@@ -432,7 +432,7 @@ router.post("/api/investment/:id", function (req, expressRes) {
                                     investmentName: req.body.investmentName,
                                     amount: req.body.amount,
                                     datePurchased: req.body.datePurchased,
-                                    costBasis: req.body.costBasis,
+                                    costBasis: parseFloat(req.body.costBasis).toFixed(2),
                                     currentValue: req.body.currentValue,
                                 }).then(function (dbInvestmentResp) {
                                     // We have access to the new todo as an argument inside of the callback function
@@ -464,7 +464,7 @@ router.post("/api/investment/:id", function (req, expressRes) {
                                 investmentName: req.body.investmentName,
                                 amount: req.body.amount,
                                 datePurchased: req.body.datePurchased,
-                                costBasis: req.body.costBasis,
+                                costBasis: parseFloat(req.body.costBasis).toFixed(2),
                                 currentValue: req.body.currentValue,
                             }).then(function (dbInvestmentResp) {
                                 // We have access to the new todo as an argument inside of the callback function
@@ -614,7 +614,7 @@ function addInvestment(params, body, imgUrl, res) {
         investmentName: body.investmentName,
         amount: body.amount,
         datePurchased: body.datePurchased,
-        costBasis: body.costBasis,
+        costBasis: parseFloat(body.costBasis).toFixed(2),
         currentValue: body.currentValue,
         investmentImgUrl: imgUrl
     }).then(function (dbInvestmentResp) {
