@@ -407,10 +407,11 @@ router.post("/api/investment/:id", function (req, expressRes) {
                                 // period: 'd'  // 'd' (daily)
                             }, function (err, quotes) {
                                 console.log("full quote response- historical", quotes[0]);
-                                if (!quotes && quotes[0].adjClose == undefined) {
+                                if (!quotes) {
                                     console.log("invalid req.body.investmentName in investments POST handler");
                                     expressRes.status(404).send({ msg: "Invalid Stock entered.  Please try again." });
                                 }
+                                console.log(quotes)
                                 console.log(quotes[0].adjClose)
                                 console.log(req.body.amount);
                                 //set the costBasis = amount of the coin * price of the coin at the time of purchase
