@@ -413,7 +413,8 @@ router.post("/api/investment/:id", function (req, expressRes) {
                                 to: req.body.datePurchased
                                 // period: 'd'  // 'd' (daily)
                             }, function (err, quotes) {
-                              
+                                console.log("quotes:")
+                                console.log(quotes)
                                 console.log("ERROR: " +err)
                               if (!quotes || quotes.length<1){
                                   console.log("QUOTES UNDEFINED")
