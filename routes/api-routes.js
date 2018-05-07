@@ -410,7 +410,7 @@ router.post("/api/investment/:id", function (req, expressRes) {
                             yahooFinance.historical({
                                 symbol: req.body.investmentName,
                                 from: req.body.datePurchased,
-                                to: req.body.datePurchased,
+                                to: req.body.datePurchased
                                 // period: 'd'  // 'd' (daily)
                             }, function (err, quotes) {
                               
