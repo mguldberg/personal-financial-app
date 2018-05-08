@@ -421,16 +421,16 @@ router.post("/api/investment/:id", function (req, expressRes) {
                                 expressRes.status(404).send({ msg: "Error finding historical data.  Please try again." });   
                                 return;
                               }
-                               else if (quotes[0].adjClose==undefined) {
+                               else if (quotes[quotes.length-1].adjClose==undefined) {
                                     console.log("invalid req.body.investmentName in investments POST handler");
                                     expressRes.status(404).send({ msg: "Error finding historical data.  Please try again." });
                                     return;
                                 }
                                 console.log(quotes)
-                                console.log(quotes[0].adjClose)
+                                console.log(quotes[quotes.length-1].adjClose)
                                 console.log(req.body.amount);
                                 //set the costBasis = amount of the coin * price of the coin at the time of purchase
-                                req.body.costBasis = req.body.amount * quotes[0].adjClose
+                                req.body.costBasis = req.body.amount * quotes[quotes.length-1].adjClose
 
                                 console.log(req.body.costBasis);
 
