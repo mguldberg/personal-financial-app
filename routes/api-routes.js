@@ -410,7 +410,7 @@ router.post("/api/investment/:id", function (req, expressRes) {
                             yahooFinance.historical({
                                 symbol: "AAPL",
                                 from: "2018-05-02",
-                                to: "2018-05-05"
+                                to: "2018-05-02"
                                 // period: 'd'  // 'd' (daily)
                             }, function (err, quotes) {
                                 console.log("quotes:")
