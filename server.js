@@ -25,6 +25,7 @@ var htmlRoutes = require("./routes/html-routes.js");
 //Run routes
 app.use(apiRoutes);
 app.use(htmlRoutes);
+
 //Require models
 var db=require("./models")
 //Start server

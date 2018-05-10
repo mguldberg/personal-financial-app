@@ -322,7 +322,7 @@ router.post("/api/investment/:id", function (req, expressRes) {
                     if (!err && stockResponse.statusCode === 200) {
                         console.log(queryStockNameResp.ResultSet.Result[0])
 
-                        if (queryStockNameResp.ResultSet.Result[0] == []){
+                        if (queryStockNameResp.ResultSet.Result[0] == []) {
                             console.log("invalid req.body.investmentName in investments POST handler");
                             expressRes.status(404).send({ msg: "Invalid Stock entered.  Please try again." });
                         }
@@ -371,7 +371,7 @@ router.post("/api/investment/:id", function (req, expressRes) {
                         }
                     }
 
-                    console.log("stock match:",stockMatchBool);
+                    console.log("stock match:", stockMatchBool);
                     //if we didn't find a match - inform the user of the problem
                     //leave immediately from this route and return error code to front end
                     if (stockMatchBool == false) {
@@ -394,43 +394,27 @@ router.post("/api/investment/:id", function (req, expressRes) {
                         req.body.currentValue = currentQuotes.price.regularMarketPrice * req.body.amount;
 
                         //checking to see if the optional parameter for Cost Basis was sent
-                        if (/*req.body.datePurchased != moment().format('YYYY-MM-DD') &&*/ (req.body.costBasis == 0)) {
+                        if (req.body.datePurchased != moment().format('YYYY-MM-DD') && (req.body.costBasis == 0)) {
                             // call historic Stock price lookup api using Yahoo-finance API
 
                             //     req.body.datePurchased = moment().subtract(1, 'days').toString();
                             // }
-                            console.log("HISTORICAL ERROR HANDLING! HISTORICAL ERROR HANDLING!")
-                            console.log(req.body.investmentName)
-                            console.log("SPACER")
-                            console.log(req.body.datePurchased)
-                            console.log("SPACER")
-                            console.log(req.body.datePurchased)
-                            console.log("SPACER")
 
                             yahooFinance.historical({
                                 symbol: req.body.investmentName,
                                 from: req.body.datePurchased,
-                                // to: "2018-05-03"
-                                period: 'd'  // 'd' (daily)
+                                to: req.body.datePurchased,
+                                // period: 'd'  // 'd' (daily)
                             }, function (err, quotes) {
-                                console.log("quotes:")
-                                console.log(quotes)
-                                console.log("ERROR: " +err)
-                              if (!quotes || quotes.length<1){
-                                  console.log("QUOTES UNDEFINED")
-                                expressRes.status(404).send({ msg: "Error finding historical data.  Please try again." });   
-                                return;
-                              }
-                               else if (quotes[quotes.length-1].adjClose==undefined) {
+                                console.log("full quote response- historical", quotes[0]);
+                                if (quotes[0].adjClose == undefined) {
                                     console.log("invalid req.body.investmentName in investments POST handler");
-                                    expressRes.status(404).send({ msg: "Error finding historical data.  Please try again." });
-                                    return;
+                                    expressRes.status(404).send({ msg: "Invalid Stock entered.  Please try again." });
                                 }
-                                console.log(quotes)
-                                console.log(quotes[quotes.length-1].adjClose)
+                                console.log(quotes[0].adjClose)
                                 console.log(req.body.amount);
                                 //set the costBasis = amount of the coin * price of the coin at the time of purchase
-                                req.body.costBasis = req.body.amount * quotes[quotes.length-1].adjClose
+                                req.body.costBasis = req.body.amount * quotes[0].adjClose
 
                                 console.log(req.body.costBasis);
 
@@ -448,7 +432,7 @@ router.post("/api/investment/:id", function (req, expressRes) {
                                     investmentName: req.body.investmentName,
                                     amount: req.body.amount,
                                     datePurchased: req.body.datePurchased,
-                                    costBasis: parseFloat(req.body.costBasis).toFixed(2),
+                                    costBasis: req.body.costBasis,
                                     currentValue: req.body.currentValue,
                                 }).then(function (dbInvestmentResp) {
                                     // We have access to the new todo as an argument inside of the callback function
@@ -480,7 +464,7 @@ router.post("/api/investment/:id", function (req, expressRes) {
                                 investmentName: req.body.investmentName,
                                 amount: req.body.amount,
                                 datePurchased: req.body.datePurchased,
-                                costBasis: parseFloat(req.body.costBasis).toFixed(2),
+                                costBasis: req.body.costBasis,
                                 currentValue: req.body.currentValue,
                             }).then(function (dbInvestmentResp) {
                                 // We have access to the new todo as an argument inside of the callback function
@@ -630,7 +614,7 @@ function addInvestment(params, body, imgUrl, res) {
         investmentName: body.investmentName,
         amount: body.amount,
         datePurchased: body.datePurchased,
-        costBasis: parseFloat(body.costBasis).toFixed(2),
+        costBasis: body.costBasis,
         currentValue: body.currentValue,
         investmentImgUrl: imgUrl
     }).then(function (dbInvestmentResp) {
