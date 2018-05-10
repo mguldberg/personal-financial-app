@@ -31,14 +31,5 @@ router.get("/investments/", function (req, res) {
   res.render("investments", hbsObject);
 
 });
-router.get("/contact_mg/", function (req, res) {
-  //place holder
-  var hbsObject = {
-    userData: 'data'
-  }
-  console.log(hbsObject);
-  res.render("contact_mg", hbsObject);
-
-})
 
 module.exports = router;
